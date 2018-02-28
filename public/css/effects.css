@@ -1,0 +1,57 @@
+.effect {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.effect img {
+    width: 100%;
+    height: 100%;
+}
+
+.effect .caption {
+    position: absolute;
+    top: -100%;
+    left: 0px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+    -o-transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+    -ms-transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.effect .caption h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-top: 15%;
+}
+
+.effect .caption p {
+    margin: 15px 0px;
+    text-align: center;
+    font-style: italic;
+    padding: 0px 10px;
+}
+
+.effect .caption a.btn {
+    width: 120px;
+    text-align: center;
+    display: block;
+    background: #68432d;
+    color: #fff;
+    padding: 10px 0px;
+    border-radius: 5px;
+    margin: 0px auto 0px auto;
+}
+.effect:hover .caption {
+    top: 0px;
+}
