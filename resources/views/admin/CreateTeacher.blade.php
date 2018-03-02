@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin_lte.layout.app')
 @section('styles')
 
     <link rel="stylesheet" href="/css/profile.min.css">

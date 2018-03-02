@@ -1,16 +1,9 @@
-@extends('admin.layouts.app')
+@extends('admin_lte.layout.app')
 @section('styles')
     <link rel="stylesheet" href="/css/profile.min.css">
     <link rel="stylesheet" href="/css/components.css">
 @stop
 @section('content')
-    <div class="divider"></div>
-    <a href="/logout" style="float: right; margin-right: 1em;" >
-        <button type="button" class="btn btn-info" >
-            <span class="glyphicon glyphicon-log-out"></span>Log out
-        </button>
-        </a>
-    <div class="container" style="margin-bottom: 1em; margin-top: 5em; width: 75%;">
         @if(isset($teacher))
         <div class="row">
             <div class="col-md-4">
@@ -72,7 +65,6 @@
                 </div>
             </div>
         @endif
-</div>
 @stop
 
 @section('scripts')

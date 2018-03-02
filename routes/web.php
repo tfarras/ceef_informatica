@@ -62,7 +62,7 @@ Route::get('home',function(){
     return redirect('/');
 });
 
-Route::get('/admin', 'HomeController@index');
+Route::get('/admin', 'HomeController@index')->name('AdminHome');
 Route::get('/home', function (){
     return redirect('/admin');
 });
@@ -72,10 +72,19 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/admin/create/teacher','Admin\AdminController@CreateTeacherIndex')->name('CreateTeacherIndex');
 Route::post('/admin/create/teacher/done','Admin\AdminController@CreateTeacher')->name('CreateTeacher');
 Route::get('/admin/teacher','Admin\AdminController@EditIndex')->name('EditIndex');
-Route::get('/admin/teacher/{id}/edit','Admin\AdminController@EditTeacherIndex')->name('EditTeacherIndex');
+Route::get('/admin/edit/teacher/{id}','Admin\AdminController@EditTeacherIndex')->name('EditTeacherIndex');
 Route::post('/admin/teacher/edit/done','Admin\AdminController@EditTeacher')->name('EditTeacher');
 
 Route::get('/teacher/{id}/show','MainController@teacherIndex')->name('teacher.show');
 
 Route::get('/admin/create/event','Admin\AdminController@CreateEventIndex')->name('CreateEventIndex');
 Route::post('/admin/create/event/done','Admin\AdminController@CreateEvent')->name('CreateEvent');
+Route::get('/admin/test',function(){
+    return view('auth.login2');
+});
+
+Route::get('admin/gallery/upload','Admin\AdminController@GalleryUploadIndex')->name('GalleryUploadIndex');
+Route::get('admin/gallery/view','Admin\AdminController@GalleryShow')->name('GalleryShow');
+
+Route::post('admin/gallery/upload/done','Admin\AdminController@ImageUpload')->name('ImageUpload');
+Route::get('admin/edit/event','Admin\AdminController@EventEdit')->name('EditEvent');

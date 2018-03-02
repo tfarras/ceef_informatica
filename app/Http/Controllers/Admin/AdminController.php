@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Event;
+use App\EventImage;
+use App\Image;
+use Carbon\Carbon;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Shedule;
 use App\Teacher;
 use App\TeacherDiscipline;
 use App\DaysOfWeek;
+use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
@@ -17,7 +23,7 @@ class AdminController extends Controller
     }
 
     public function CreateTeacherIndex(){
-        return view('admin.CreateTeacher');
+        return view('admin_lte.CreateTeacher');
     }
 
     public function CreateTeacher(Request $request){
@@ -344,7 +350,7 @@ $teacher->image=$imageName;
             $shedule_4=Shedule::where('day_of_week_id','4')->where('teacher_id',$teacher->id)->first();
             $shedule_5=Shedule::where('day_of_week_id','5')->where('teacher_id',$teacher->id)->first();
 
-            return view('admin.EditTeacher')->with('teacher',$teacher)->with('disciplines_teacher',$disciplines)
+            return view('admin_lte.EditTeacher')->with('teacher',$teacher)->with('disciplines_teacher',$disciplines)
                 ->with('shedule_1',$shedule_1)
                 ->with('shedule_2',$shedule_2)
                 ->with('shedule_3',$shedule_3)
@@ -352,21 +358,123 @@ $teacher->image=$imageName;
                 ->with('shedule_5',$shedule_5);
         }
         else{
-            return view('admin.EditTeacher');
+            return view('admin_lte.EditTeacher');
         }
     }
 
     public function EditIndex(){
         $teachers=\App\Teacher::get();
-        return view('admin.Edit-Index')->with('teachers',$teachers);
+        return view('admin_lte.Edit-Index')->with('teachers',$teachers);
     }
 
     public function CreateEventIndex(){
 
-        return view('admin.CreateEvent');
+        return view('admin_lte.CreateEvent');
     }
 
-    public function CreateEvent(){
+    public function CreateEvent(Request $request){
+        $title=$request->input('title');
+        $description=$request->input('description');
+        $datetime=$request->input('datetime');
+        $image=$request->file('image');
+
+        if(!$title){
+            return redirect()->back()->with('error_message','Întroduceți denumirea!');
+        }
+
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descrierea!');
+        }
+        if(!$datetime){
+            return redirect()->back()->with('error_message','Întroduceți data și timpul!');
+        }
+        if(!$image){
+            return redirect()->back()->with('error_message','Alegeți imaginea!');
+        }
+        $datetime= Carbon::createFromFormat('d/m/Y H:i',$datetime);
+        $datetime=$datetime->format('Y-m-d H:i');
+        $extensions=['png','jpg','jpeg','gif'];
+        if(!in_array($image->guessClientExtension(),$extensions)){
+            return redirect()->back()->with('error_message','Extension of image is not supported !');
+        }
+        $imageName=date('m-d-Y_hia').uniqid().'.'.$image->guessClientExtension();
+        $path=$image->storeAs('images/gallery',$imageName,'uploads');
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+
+        $event = new Event();
+        $event->name=$title;
+        $event->description=$description;
+        $event->date=$datetime;
+        $event->save();
+
+        $eventImage= new EventImage();
+        $eventImage->path=$path;
+        $eventImage->event_id=$event->id;
+        $eventImage->save();
+
+        return redirect()->back()->with('message','Evenimentul a fost creat cu succes !');
+
+
+    }
+
+    public function GalleryUploadIndex(){
+
+        return view('admin_lte.GalleryUploadIndex');
+    }
+
+    public function ImageUpload(Request $input){
+        $files = $input->file('files');
+        $json = array(
+            'files' => array()
+        );
+        $extensions=['png','jpg','jpeg','gif'];
+        foreach ($files as $file){
+            $filename = $file->getClientOriginalName();
+            if(!in_array($file->guessClientExtension(),$extensions)){
+                $json['files'][] = array(
+                    'name' => $filename,
+                    'size' => $file->getSize(),
+                    'type' => $file->getMimeType(),
+                    'error' => 'Extension of image is not supported !'
+                );
+            }else{
+                $imageName=date('m-d-Y_hia').uniqid().'.'.$file->guessClientExtension();
+                $path=$file->storeAs('images/gallery',$imageName,'uploads');
+                $upload= new Image();
+                $upload->path=$path;
+                $upload->save();
+
+                $json['files'][] = array(
+                    'name' => $filename,
+                    'size' => $file->getSize(),
+                    'type' => $file->getMimeType(),
+                    'success' => 'Success !',
+                );
+            }
+
+        }
+        return \response()->json($json);
+    }
+
+    public function GalleryShow(){
+
+        $images=Image::all();
+
+        return view('admin_lte.GalleryView')->with('images',$images);
+
+    }
+
+    public function EventEdit(Request $request){
+        $id=$request->input('id');
+        $event=Event::where('id',$id)->first();
+
+        if(!$event){
+            return redirect()->route('AdminHome')->with('error_message','Evenimentul nu există');
+        }
+
+        return view('admin_lte.EditEvent')->with('event',$event);
+
 
     }
 
