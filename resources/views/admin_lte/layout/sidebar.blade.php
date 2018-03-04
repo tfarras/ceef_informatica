@@ -49,6 +49,26 @@
                                 </form></li>
                         </ul>
                     </li>
+                    <li class="treeview {{ Request::is('admin/edit/absolvent*')  ? 'active menu-open' : ''  }}">
+                        <a href="#"><i class="fa fa-circle-o"></i> Absolvent
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu" >
+                            <li><form method="get" action="{{route('AbsolventEdit')}}">
+                                    <select name="id" class="form-control select2" style="width: 75%">
+                                       @php
+                                               $absolvents=\App\Absolvent::all();
+                                               @endphp
+                                        @foreach($absolvents as $absolvent)
+                                            <option value="{{$absolvent->id}}">{{$absolvent->first_name}} {{$absolvent->last_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" class="btn btn-xs bg-navy" value="Edit"/>
+                                </form></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
 

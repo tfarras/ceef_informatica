@@ -93,3 +93,5 @@ Route::post('admin/edit/event/save','Admin\AdminController@EventSave')->name('Ev
 
 Route::get('admin/create/absolvent/index','Admin\AdminController@AbsolventCreateIndex')->name('AbsolventCreateIndex');
 Route::post('admin/create/absolvent/done','Admin\AdminController@AbsolventCreate')->name('AbsolventCreate');
+Route::get('admin/edit/absolvent','Admin\AdminController@AbsolventEdit')->name('AbsolventEdit');
+Route::post('admin/edit/absolvent/save','Admin\AdminController@AbsolventSave')->name('AbsolventSave');

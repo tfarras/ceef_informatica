@@ -587,4 +587,71 @@ $teacher->image=$imageName;
 
     }
 
+    public function AbsolventEdit(Request $request){
+        $id=$request->input('id');
+        $absolvent=Absolvent::where('id',$id)->first();
+        $year=date('Y-m-d');
+        $start_date=date('Y-m-d',strtotime('-3 year',strtotime($year)));
+        $start_date=Carbon::createFromFormat('Y-m-d',$start_date);
+        $end_date=date('Y-m-d',strtotime('+1 year',strtotime($year)));
+        $end_date=Carbon::createFromFormat('Y-m-d',$end_date);
+        $dates = [];
+
+        for($date = $start_date; $date->lte($end_date); $date->addYear()) {
+            $dates[] = $date->format('Y');
+        }
+        return view('admin_lte.AbsolventEdit')->with('absolvent',$absolvent)->with('dates',$dates);
+
+    }
+
+    public function AbsolventSave(Request $request){
+        $promotion=$request->input('promotion');
+        $firstname=$request->input('firstname');
+        $lastname=$request->input('lastname');
+        $image=$request->file('image');
+        $company=$request->input('company');
+        $group=$request->input('group');
+        $id=$request->input('id');
+
+        $absolvent=Absolvent::where('id',$id)->first();
+
+        if(!$absolvent){
+            return redirect()->back()->with('error_message','Absolventul nu exista !');
+        }
+
+        if(!$firstname){
+            return redirect()->back()->with('error_message','Întroduceți prenume !');
+        }
+        if(!$promotion){
+            return redirect()->back()->with('error_message','Întroduceți promoția !');
+        }
+        if(!$lastname){
+            return redirect()->back()->with('error_message','Întroduceți nume !');
+        }
+        if(!$group){
+            return redirect()->back()->with('error_message','Întroduceți grupa !');
+        }
+
+        $absolvent->first_name=$firstname;
+        $absolvent->last_name=$lastname;
+        $absolvent->group=$group;
+        $absolvent->work=$company;
+        $absolvent->year=$promotion;
+
+
+        if($image){
+            $extensions=['png','jpg','jpeg','gif'];
+            if(!in_array($image->guessClientExtension(),$extensions)){
+                return redirect()->back()->with('error_message','Extension of image is not supported !');
+            }
+            $imageName=date('m-d-Y_hia').uniqid().'.'.$image->guessClientExtension();
+            $path=$image->storeAs('images/gallery',$imageName,'uploads');
+            $absolvent->photo_path=$path;
+        }
+
+        $absolvent->save();
+
+        return redirect()->back()->with('message','Absolventul a fost editat cu succes !');
+
+    }
 }
