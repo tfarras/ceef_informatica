@@ -71,7 +71,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/admin/create/teacher','Admin\AdminController@CreateTeacherIndex')->name('CreateTeacherIndex');
 Route::post('/admin/create/teacher/done','Admin\AdminController@CreateTeacher')->name('CreateTeacher');
-Route::get('/admin/teacher','Admin\AdminController@EditIndex')->name('EditIndex');
+Route::get('/admin/edit/teachers','Admin\AdminController@EditIndex')->name('EditIndex');
 Route::get('/admin/edit/teacher/{id}','Admin\AdminController@EditTeacherIndex')->name('EditTeacherIndex');
 Route::post('/admin/teacher/edit/done','Admin\AdminController@EditTeacher')->name('EditTeacher');
 
@@ -88,3 +88,8 @@ Route::get('admin/gallery/view','Admin\AdminController@GalleryShow')->name('Gall
 
 Route::post('admin/gallery/upload/done','Admin\AdminController@ImageUpload')->name('ImageUpload');
 Route::get('admin/edit/event','Admin\AdminController@EventEdit')->name('EditEvent');
+
+Route::post('admin/edit/event/save','Admin\AdminController@EventSave')->name('EventSave');
+
+Route::get('admin/create/absolvent/index','Admin\AdminController@AbsolventCreateIndex')->name('AbsolventCreateIndex');
+Route::post('admin/create/absolvent/done','Admin\AdminController@AbsolventCreate')->name('AbsolventCreate');

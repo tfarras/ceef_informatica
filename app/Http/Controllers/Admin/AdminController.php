@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Absolvent;
 use App\Event;
 use App\EventImage;
 use App\Image;
@@ -14,6 +15,8 @@ use App\Teacher;
 use App\TeacherDiscipline;
 use App\DaysOfWeek;
 use Illuminate\Http\Response;
+use DateInterval;
+use DatePeriod;
 
 class AdminController extends Controller
 {
@@ -475,6 +478,112 @@ $teacher->image=$imageName;
 
         return view('admin_lte.EditEvent')->with('event',$event);
 
+
+    }
+
+    public function EventSave(Request $request){
+        $title=$request->input('title');
+        $description=$request->input('description');
+        $datetime=$request->input('datetime');
+        $image=$request->file('image');
+        $id=$request->input('id');
+
+        $event=Event::where('id',$id)->first();
+
+        if(!$event){
+            return redirect()->back()->with('error_message','Fatal error. Event does not exists');
+        }
+
+        if(!$title){
+            return redirect()->back()->with('error_message','Întroduceți denumirea!');
+        }
+
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descrierea!');
+        }
+        if(!$datetime){
+            return redirect()->back()->with('error_message','Întroduceți data și timpul!');
+        }
+        $datetime= Carbon::createFromFormat('d/m/Y H:i',$datetime);
+        $datetime=$datetime->format('Y-m-d H:i');
+        $event->name=$title;
+        $event->description=$description;
+        $event->date=$datetime;
+        $event->save();
+
+        if($image){
+            $extensions=['png','jpg','jpeg','gif'];
+            if(!in_array($image->guessClientExtension(),$extensions)){
+                return redirect()->back()->with('error_message','Extension of image is not supported !');
+            }
+            $imageName=date('m-d-Y_hia').uniqid().'.'.$image->guessClientExtension();
+            $path=$image->storeAs('images/gallery',$imageName,'uploads');
+
+            $eventImage= EventImage::where('event_id',$event->id)->first();
+            $eventImage->path=$path;
+            $eventImage->event_id=$event->id;
+            $eventImage->save();
+        }
+
+        return redirect()->back()->with('message','Evenimentul a fost redactat cu succes !');
+    }
+
+    public function AbsolventCreateIndex(){
+        $year=date('Y-m-d');
+        $start_date=date('Y-m-d',strtotime('-3 year',strtotime($year)));
+        $start_date=Carbon::createFromFormat('Y-m-d',$start_date);
+        $end_date=date('Y-m-d',strtotime('+1 year',strtotime($year)));
+        $end_date=Carbon::createFromFormat('Y-m-d',$end_date);
+        $dates = [];
+
+        for($date = $start_date; $date->lte($end_date); $date->addYear()) {
+            $dates[] = $date->format('Y');
+        }
+
+        return view('admin_lte.AbsolventCreateIndex')->with('dates',$dates);
+    }
+
+    public function AbsolventCreate(Request $request){
+        $promotion=$request->input('promotion');
+        $firstname=$request->input('firstname');
+        $lastname=$request->input('lastname');
+        $image=$request->file('image');
+        $company=$request->input('company');
+        $group=$request->input('group');
+
+        if(!$firstname){
+            return redirect()->back()->with('error_message','Întroduceți prenume !');
+        }
+        if(!$promotion){
+            return redirect()->back()->with('error_message','Întroduceți promoția !');
+        }
+        if(!$lastname){
+            return redirect()->back()->with('error_message','Întroduceți nume !');
+        }
+        if(!$group){
+            return redirect()->back()->with('error_message','Întroduceți grupa !');
+        }
+        if(!$image){
+            return redirect()->back()->with('error_message','Allegeți fotografie !');
+        }
+            $extensions=['png','jpg','jpeg','gif'];
+            if(!in_array($image->guessClientExtension(),$extensions)){
+                return redirect()->back()->with('error_message','Extension of image is not supported !');
+            }
+            $imageName=date('m-d-Y_hia').uniqid().$firstname.'_'.$lastname.'.'.$image->guessClientExtension();
+            $path=$image->storeAs('images/absolventi',$imageName,'uploads');
+
+
+        $absolvent=new Absolvent();
+        $absolvent->first_name=$firstname;
+        $absolvent->last_name=$lastname;
+        $absolvent->group=$group;
+        $absolvent->work=$company;
+        $absolvent->year=$promotion;
+        $absolvent->photo_path=$path;
+        $absolvent->save();
+
+        return redirect()->back()->with('message','Absolvent a fost adaugat cu success !');
 
     }
 

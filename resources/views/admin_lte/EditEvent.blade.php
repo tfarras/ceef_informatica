@@ -16,7 +16,7 @@
         <div class="alert alert-success alert-dismissable">{{ session()->get('message') }}</div>
     @endif
 
-    <form id="CreateEventForm" action="{{route('CreateEvent')}}" enctype="multipart/form-data" method="post" onsubmit="CopyText();">
+    <form id="CreateEventForm" action="{{route('EventSave')}}" enctype="multipart/form-data" method="post" onsubmit="CopyText();">
         <div class="box" style="padding: 1em;">
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -85,6 +85,7 @@
                 </div>
                 <div class="form-group">
                     {{@csrf_field()}}
+                    <input type="hidden" value="{{$event->id}}" name="id">
                     <input type="submit" class="btn btn-success" value="Add Event">
                 </div>
             </div>

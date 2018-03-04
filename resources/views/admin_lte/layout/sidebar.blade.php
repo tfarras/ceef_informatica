@@ -13,8 +13,9 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ Request::is('admin/create/teacher*')  ? 'active' : ''  }}"><a href="{{route('CreateTeacherIndex')}}"><i class="fa fa-circle-o"></i>Profesor</a></li>
-                    <li class="{{ Request::is('admin/create/event*')  ? 'active' : ''  }}"><a href="{{route('CreateEventIndex')}}"><i class="fa fa-circle-o"></i>Eveniment</a></li>
+                    <li class="{{ Request::is('admin/create/teacher*')  ? 'active' : ''  }}"><a href="{{route('CreateTeacherIndex')}}"><i class="fa fa-circle-o"></i> Profesor</a></li>
+                    <li class="{{ Request::is('admin/create/event*')  ? 'active' : ''  }}"><a href="{{route('CreateEventIndex')}}"><i class="fa fa-circle-o"></i> Eveniment</a></li>
+                    <li class="{{ Request::is('admin/create/absolvent*')  ? 'active' : ''  }}"><a href="{{route('AbsolventCreateIndex')}}"><i class="fa fa-circle-o"></i> Absolvent</a></li>
 
                 </ul>
             </li>
@@ -27,14 +28,14 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ Request::is('admin/edit/teacher*')  ? 'active ' : ''  }}"><a href="{{route('EditIndex')}}"><i class="fa fa-circle-o"></i> Profesor</a></li>
-                    <li class="treeview menu-open">
+                    <li class="{{ Request::is('admin/edit/teachers*')  ? 'active ' : ''  }}"><a href="{{route('EditIndex')}}"><i class="fa fa-circle-o"></i> Profesor</a></li>
+                    <li class="treeview {{ Request::is('admin/edit/event*')  ? 'active menu-open' : ''  }}">
                         <a href="#"><i class="fa fa-circle-o"></i> Eveniment
                             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
                         </a>
-                        <ul class="treeview-menu" style="display: block;">
+                        <ul class="treeview-menu" >
                             <li><form method="get" action="{{route('EditEvent')}}">
                                     <select name="id" class="form-control select2" style="width: 75%">
                                        @php
