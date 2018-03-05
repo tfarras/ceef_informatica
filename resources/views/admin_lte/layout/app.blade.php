@@ -85,7 +85,7 @@
 <script src="/admin_lte/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.select2').select2({
+        $('.select-dark').select2({
             theme: "dark-adminlte"
         });
     });

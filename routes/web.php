@@ -95,3 +95,10 @@ Route::get('admin/create/absolvent/index','Admin\AdminController@AbsolventCreate
 Route::post('admin/create/absolvent/done','Admin\AdminController@AbsolventCreate')->name('AbsolventCreate');
 Route::get('admin/edit/absolvent','Admin\AdminController@AbsolventEdit')->name('AbsolventEdit');
 Route::post('admin/edit/absolvent/save','Admin\AdminController@AbsolventSave')->name('AbsolventSave');
+
+//Delete
+Route::get('admin/delete/index','Admin\AdminController@DeleteAllIndex')->name('DeleteAll');
+Route::post('admin/delete/teacher','Admin\AdminController@deleteTeacher')->name('DeleteTeacher');
+Route::post('admin/delete/event','Admin\AdminController@deleteEvent')->name('DeleteEvent');
+Route::post('admin/delete/absolvent','Admin\AdminController@deleteAbsolvent')->name('DeleteAbsolvent');
+Route::post('admin/delete/article','Admin\AdminController@deleteArticle')->name('DeleteArticle');

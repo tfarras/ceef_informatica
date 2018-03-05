@@ -17,6 +17,7 @@ use App\DaysOfWeek;
 use Illuminate\Http\Response;
 use DateInterval;
 use DatePeriod;
+use Mockery\Exception;
 
 class AdminController extends Controller
 {
@@ -652,6 +653,50 @@ $teacher->image=$imageName;
         $absolvent->save();
 
         return redirect()->back()->with('message','Absolventul a fost editat cu succes !');
+
+    }
+
+    public function DeleteAllIndex(){
+        $events=Event::all();
+        $teachers=Teacher::all();
+        $absolvents=Absolvent::all();
+        return view('admin_lte.delete-all')
+            ->with('events',$events)
+            ->with('teachers',$teachers)
+            ->with('absolvents',$absolvents);
+    }
+
+    public function deleteTeacher(Request $request){
+            try{
+                Teacher::destroy($request->input('id'));
+            }
+            catch (Exception $exception){
+                return redirect()->back()->with('error_message','Error: '.$exception);
+            }
+
+            return redirect()->back()->with('message','Profesorul a fost șters cu succes !');
+    }
+    public function deleteAbsolvent(Request $request){
+        try{
+            Absolvent::destroy($request->input('id'));
+        }
+        catch (Exception $exception){
+            return redirect()->back()->with('error_message','Error: '.$exception);
+        }
+
+        return redirect()->back()->with('message','Absolvent a fost șters cu succes !');
+    }
+    public function deleteEvent(Request $request){
+        try{
+            Event::destroy($request->input('id'));
+        }
+        catch (Exception $exception){
+            return redirect()->back()->with('error_message','Error: '.$exception);
+        }
+
+        return redirect()->back()->with('message','Eveniment a fost șters cu succes !');
+    }
+    public function deleteArticle(Request $request){
 
     }
 }

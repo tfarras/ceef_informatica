@@ -37,7 +37,7 @@
                         </a>
                         <ul class="treeview-menu" >
                             <li><form method="get" action="{{route('EditEvent')}}">
-                                    <select name="id" class="form-control select2" style="width: 75%">
+                                    <select name="id" class="form-control select2 select-dark" style="width: 75%">
                                        @php
                                                $events=\App\Event::all();
                                                @endphp
@@ -57,7 +57,7 @@
                         </a>
                         <ul class="treeview-menu" >
                             <li><form method="get" action="{{route('AbsolventEdit')}}">
-                                    <select name="id" class="form-control select2" style="width: 75%">
+                                    <select name="id" class="form-control select2 select-dark" style="width: 75%">
                                        @php
                                                $absolvents=\App\Absolvent::all();
                                                @endphp
@@ -84,6 +84,14 @@
                     <li class="{{ Request::is('admin/gallery/upload*')  ? 'active ' : ''  }}"><a href="{{route('GalleryUploadIndex')}}"><i class="fa fa-circle-o"></i> Încarcă</a></li>
                     <li class="{{ Request::is('admin/gallery/view*')  ? 'active ' : ''  }}"><a href="{{route('GalleryShow')}}"><i class="fa fa-circle-o"></i> Vizioneză</a></li>
                 </ul>
+            </li>
+            <li class="{{ Request::is('admin/delete*')  ? 'active' : ''  }}">
+                <a href="{{route('DeleteAll')}}">
+                    <i class="fa fa-edit"></i>
+                    <span>Ștergere</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
             </li>
 
         </ul>
