@@ -102,3 +102,9 @@ Route::post('admin/delete/teacher','Admin\AdminController@deleteTeacher')->name(
 Route::post('admin/delete/event','Admin\AdminController@deleteEvent')->name('DeleteEvent');
 Route::post('admin/delete/absolvent','Admin\AdminController@deleteAbsolvent')->name('DeleteAbsolvent');
 Route::post('admin/delete/article','Admin\AdminController@deleteArticle')->name('DeleteArticle');
+
+//TODO Article
+Route::get('admin/create/article','Admin\AdminController@createArticle')->name('CreateArticle');
+Route::post('admin/create/article/save','Admin\AdminController@createArticleSave')->name('CreateArticleSave');
+Route::get('admin/edit/article','Admin\AdminController@editArticleIndex')->name('editArticle');
+Route::get('admin/edit/article/save','Admin\AdminController@articleSave')->name('ArticleSave');

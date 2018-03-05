@@ -16,6 +16,7 @@
                     <li class="{{ Request::is('admin/create/teacher*')  ? 'active' : ''  }}"><a href="{{route('CreateTeacherIndex')}}"><i class="fa fa-circle-o"></i> Profesor</a></li>
                     <li class="{{ Request::is('admin/create/event*')  ? 'active' : ''  }}"><a href="{{route('CreateEventIndex')}}"><i class="fa fa-circle-o"></i> Eveniment</a></li>
                     <li class="{{ Request::is('admin/create/absolvent*')  ? 'active' : ''  }}"><a href="{{route('AbsolventCreateIndex')}}"><i class="fa fa-circle-o"></i> Absolvent</a></li>
+                    <li class="{{ Request::is('admin/create/article*')  ? 'active' : ''  }}"><a href="{{route('CreateArticle')}}"><i class="fa fa-circle-o"></i> Articol</a></li>
 
                 </ul>
             </li>
@@ -67,14 +68,32 @@
                                     </select>
                                     <input type="submit" class="btn btn-xs bg-navy" value="Edit"/>
                                 </form></li>
+                </ul>
+            </li>
+                    <li class="treeview {{ Request::is('admin/edit/article*')  ? 'active menu-open' : ''  }}">
+                        <a href="#"><i class="fa fa-circle-o"></i> Articol
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu" >
+                            <li><form method="get" action="{{route('editArticle')}}">
+                                    <select name="id" class="form-control select2 select-dark" style="width: 75%">
+                                        @php
+                                            $articles=\App\Article::all();
+                                        @endphp
+                                        @foreach($articles as $article)
+                                            <option value="{{$article->id}}">{{$article->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" class="btn btn-xs bg-navy" value="Edit"/>
+                                </form></li>
                         </ul>
                     </li>
                 </ul>
-            </li>
-
             <li class="treeview {{ Request::is('admin/gallery*')  ? 'active menu-open' : ''  }}">
                 <a href="#">
-                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-image"></i>
                     <span>Galerie (administrare)</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -87,7 +106,7 @@
             </li>
             <li class="{{ Request::is('admin/delete*')  ? 'active' : ''  }}">
                 <a href="{{route('DeleteAll')}}">
-                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-remove"></i>
                     <span>Ștergere</span>
                     <span class="pull-right-container">
             </span>
@@ -95,6 +114,7 @@
             </li>
 
         </ul>
+
     </section>
     <!-- /.sidebar -->
 </aside>

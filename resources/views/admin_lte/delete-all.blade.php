@@ -109,10 +109,20 @@
             <div class="box-body">
                 <div class="form">
                     <form method="post" action="{{route('DeleteArticle')}}">
-                        {{@csrf_field()}}
                         <div class="form-body">
                             <div class="form-group">
                                 <label>Alegeți articol:</label>
+                                <select id="article" name="id" class="form-control select2" title="absolvent">
+                                    <option></option>
+                                    @foreach($articles as $article)
+                                        <option value="{{$article->id}}">{{$article->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                {{@csrf_field()}}
+                                <button class="btn btn-success">Șterge</button>
                             </div>
                         </div>
                     </form>
@@ -134,7 +144,10 @@
                 placeholder:"Evenimentul"
             });
             $('#absolvent').select2({
-                placeholder:"Evenimentul"
+                placeholder:"Absolventul"
+            });
+            $('#article').select2({
+                placeholder:"Articolul"
             });
         });
     </script>

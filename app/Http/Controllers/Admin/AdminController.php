@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Absolvent;
+use App\Article;
 use App\Event;
 use App\EventImage;
 use App\Image;
@@ -506,6 +507,8 @@ $teacher->image=$imageName;
             return redirect()->back()->with('error_message','Întroduceți data și timpul!');
         }
         $datetime= Carbon::createFromFormat('d/m/Y H:i',$datetime);
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
         $datetime=$datetime->format('Y-m-d H:i');
         $event->name=$title;
         $event->description=$description;
@@ -660,10 +663,12 @@ $teacher->image=$imageName;
         $events=Event::all();
         $teachers=Teacher::all();
         $absolvents=Absolvent::all();
+        $articles=Article::all();
         return view('admin_lte.delete-all')
             ->with('events',$events)
             ->with('teachers',$teachers)
-            ->with('absolvents',$absolvents);
+            ->with('absolvents',$absolvents)
+            ->with('articles',$articles);
     }
 
     public function deleteTeacher(Request $request){
@@ -697,6 +702,47 @@ $teacher->image=$imageName;
         return redirect()->back()->with('message','Eveniment a fost șters cu succes !');
     }
     public function deleteArticle(Request $request){
+        try{
+            Article::destroy($request->input('id'));
+        }
+        catch (Exception $exception){
+            return redirect()->back()->with('error_message','Error: '.$exception);
+        }
+
+        return redirect()->back()->with('message','Articol a fost șters cu succes !');
+    }
+
+    public function createArticle(){
+        return view('admin_lte.article-create');
+    }
+
+    public function createArticleSave(Request $request){
+        $title= $request->input('title');
+        $description= $request->input('description');
+
+        if(!$title){
+            return redirect()->back()->with('error_message','Întroduceți denumire !');
+        }
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descriere !');
+        }
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+
+        $article= new Article();
+        $article->title=$title;
+        $article->description=$description;
+        $article->save();
+
+        return redirect()->back()->with('message','Articolul a fost publicat !');
+
+    }
+
+    public function editArticleIndex(Request $request){
+
+    }
+
+    public function articleSave(Request $request){
 
     }
 }
