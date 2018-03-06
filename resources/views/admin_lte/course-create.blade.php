@@ -1,6 +1,6 @@
 @extends('admin_lte.layout.app')
-@section('Page Name','Editare')
-@section('Page desc','Articol')
+@section('Page Name','Adaugare')
+@section('Page desc','Curs')
 @section('styles')
     <link rel="stylesheet" href="/admin_lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
@@ -14,7 +14,7 @@
         <div class="alert alert-success alert-dismissable">{{ session()->get('message') }}</div>
     @endif
 
-    <form id="CreateArticletForm" action="{{route('ArticleSave')}}" method="post" onsubmit="CopyText();">
+    <form id="CreateArticletForm" action="{{route('CreateCourseSave')}}" method="post" onsubmit="CopyText();">
         <div class="box" style="padding: 1em;">
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="text" placeholder="Title" class="form-control" name="title" value="{{$article->title}}">
+                                <input type="text" placeholder="Title" class="form-control" name="title">
                             </div>
                         </div>
                     </div>
@@ -32,8 +32,7 @@
             </div>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Conținut
-                        <small></small>
+                    <h3 class="box-title">Conținut                        <small></small>
                     </h3>
                     <!-- tools box -->
                     <div class="pull-right box-tools">
@@ -56,15 +55,11 @@
             <div class="box-body">
                 <div class="form-group">
                     {{@csrf_field()}}
-                    <input type="hidden" value="{{$article->id}}" name="id">
-                    <input type="submit" class="btn btn-success" value="Add Article">
+                    <input type="submit" class="btn btn-success" value="Crează curs">
                 </div>
             </div>
         </div>
     </form>
-
-    <div id="htmlValue" style="display: none" >{{$article->description}}</div>
-
 @stop
 
 @section('scripts')
@@ -72,7 +67,7 @@
     <script src="/admin_lte/dist/js/jquery.validate.min.js"></script>
 
     <script>
-        $('.textarea').html($('#htmlValue').html());
+
         $(function () {
             //bootstrap WYSIHTML5 - text editor
             var editor = $('.textarea').wysihtml5();

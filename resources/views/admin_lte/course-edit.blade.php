@@ -1,6 +1,6 @@
 @extends('admin_lte.layout.app')
 @section('Page Name','Editare')
-@section('Page desc','Articol')
+@section('Page desc','Curs')
 @section('styles')
     <link rel="stylesheet" href="/admin_lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
@@ -14,7 +14,7 @@
         <div class="alert alert-success alert-dismissable">{{ session()->get('message') }}</div>
     @endif
 
-    <form id="CreateArticletForm" action="{{route('ArticleSave')}}" method="post" onsubmit="CopyText();">
+    <form id="CreateArticletForm" action="{{route('CourseSave')}}" method="post" onsubmit="CopyText();">
         <div class="box" style="padding: 1em;">
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="text" placeholder="Title" class="form-control" name="title" value="{{$article->title}}">
+                                <input type="text" placeholder="Title" class="form-control" name="title" value="{{$course->title}}">
                             </div>
                         </div>
                     </div>
@@ -56,14 +56,14 @@
             <div class="box-body">
                 <div class="form-group">
                     {{@csrf_field()}}
-                    <input type="hidden" value="{{$article->id}}" name="id">
-                    <input type="submit" class="btn btn-success" value="Add Article">
+                    <input type="hidden" value="{{$course->id}}" name="id">
+                    <input type="submit" class="btn btn-success" value="Save course">
                 </div>
             </div>
         </div>
     </form>
 
-    <div id="htmlValue" style="display: none" >{{$article->description}}</div>
+    <div id="htmlValue" style="display: none" >{{$course->description}}</div>
 
 @stop
 

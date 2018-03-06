@@ -131,6 +131,37 @@
         </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Cursuri</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form">
+                        <form method="post" action="{{route('CourseDelete')}}">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Alegeți curs:</label>
+                                    <select id="curs" name="id" class="form-control select2" title="absolvent">
+                                        <option></option>
+                                        @foreach($courses as $cours)
+                                            <option value="{{$cours->id}}">{{$cours->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    {{@csrf_field()}}
+                                    <button class="btn btn-success">Șterge</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @stop
 
@@ -148,6 +179,9 @@
             });
             $('#article').select2({
                 placeholder:"Articolul"
+            });
+            $('#curs').select2({
+                placeholder:"Curs"
             });
         });
     </script>

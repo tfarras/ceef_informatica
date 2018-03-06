@@ -1,6 +1,6 @@
 @extends('admin_lte.layout.app')
 @section('Page Name','Adaugare')
-@section('Page desc','Eveniment')
+@section('Page desc','Articol')
 @section('styles')
     <link rel="stylesheet" href="/admin_lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 

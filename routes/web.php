@@ -107,4 +107,12 @@ Route::post('admin/delete/article','Admin\AdminController@deleteArticle')->name(
 Route::get('admin/create/article','Admin\AdminController@createArticle')->name('CreateArticle');
 Route::post('admin/create/article/save','Admin\AdminController@createArticleSave')->name('CreateArticleSave');
 Route::get('admin/edit/article','Admin\AdminController@editArticleIndex')->name('editArticle');
-Route::get('admin/edit/article/save','Admin\AdminController@articleSave')->name('ArticleSave');
+Route::post('admin/edit/article/save','Admin\AdminController@articleSave')->name('ArticleSave');
+
+//TODO Course
+
+Route::get('admin/create/course','Admin\AdminController@createCourseIndex')->name('CreateCourse');
+Route::post('admin/create/course/save','Admin\AdminController@createCourseSave')->name('CreateCourseSave');
+Route::get('admin/edit/course','Admin\AdminController@editCourseIndex')->name('editCourse');
+Route::post('admin/edit/course/save','Admin\AdminController@editcourseSave')->name('CourseSave');
+Route::post('admin/delete/course','Admin\AdminController@deleteCourse')->name('CourseDelete');

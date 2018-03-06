@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Absolvent;
 use App\Article;
+use App\Course;
 use App\Event;
 use App\EventImage;
 use App\Image;
@@ -664,11 +665,13 @@ $teacher->image=$imageName;
         $teachers=Teacher::all();
         $absolvents=Absolvent::all();
         $articles=Article::all();
+        $courses=Course::all();
         return view('admin_lte.delete-all')
             ->with('events',$events)
             ->with('teachers',$teachers)
             ->with('absolvents',$absolvents)
-            ->with('articles',$articles);
+            ->with('articles',$articles)
+            ->with('courses',$courses);
     }
 
     public function deleteTeacher(Request $request){
@@ -739,10 +742,141 @@ $teacher->image=$imageName;
     }
 
     public function editArticleIndex(Request $request){
+        $article=Article::find($request->id);
 
+        return view('admin_lte.article-edit')->with('article',$article);
     }
 
     public function articleSave(Request $request){
+        $title= $request->input('title');
+        $description= $request->input('description');
+
+        if(!$title){
+            return redirect()->back()->with('error_message','Întroduceți denumire !');
+        }
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descriere !');
+        }
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+
+        $article= Article::find($request->id);
+        $article->title=$title;
+        $article->description=$description;
+        $article->save();
+
+        return redirect()->back()->with('message','Articolul a fost salvat !');
+    }
+
+    public  function  createCourseIndex(){
+        return view('admin_lte.course-create');
+    }
+
+    public  function createCourseSave(Request $request){
+        $title= $request->input('title');
+        $description= $request->input('description');
+
+        if(!$title){
+            return redirect()->back()->with('error_message','Întroduceți denumire !');
+        }
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descriere !');
+        }
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+
+        $course=new Course();
+        $course->title=$title;
+        $course->description=$description;
+        $course->save();
+
+        return redirect()->back()->with('message','Course a fost publicat !');
+    }
+
+    public function editCourseIndex(Request $request){
+        $course=Course::find($request->input('id'));
+
+        return view('admin_lte.course-edit')->with('course',$course);
+    }
+
+    public function editCourseSave(Request $request){
+        $title= $request->input('title');
+        $description= $request->input('description');
+
+        if(!$title){
+            return redirect()->back()->with('error_message','Întroduceți denumire !');
+        }
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descriere !');
+        }
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+
+        $article= Course::find($request->id);
+        $article->title=$title;
+        $article->description=$description;
+        $article->save();
+
+        return redirect()->back()->with('message','Curs a fost salvat !');
+    }
+
+    public function deleteCourse(Request $request){
+        try{
+            Course::destroy($request->input('id'));
+        }
+        catch (Exception $exception){
+            return redirect()->back()->with('error_message','Error: '.$exception);
+        }
+
+        return redirect()->back()->with('message','Curs a fost șters cu succes !');
+    }
+
+    //TODO PLANURI DE INVATAMINT
+
+    public function addPlanIndex(){
 
     }
+
+    public function addPlan(){
+
+    }
+
+    public function editPlanIndex(){
+
+    }
+
+    public function editPlan(){
+
+    }
+
+    public function deletePlan(){
+
+    }
+
+    //TODO PROIECTE
+
+
+    public function addProjectIndex(){
+
+    }
+
+    public function addProject(){
+
+    }
+
+    public function editProjectIndex(){
+
+    }
+
+    public function editProject(){
+
+    }
+
+    public function deleteProject(){
+
+    }
+
+    //TODO Projects gallery
+
+
 }
