@@ -63,7 +63,7 @@
         $("#input-b1").fileinput({
             showUpload:false,
             required: true,
-            allowedFileExtensions: ["pdf","xlsx", "xls", "docx", "doc"]
+            allowedFileExtensions: ["pdf"]
         });
         $(document).ready(function(){
             $.validator.setDefaults({

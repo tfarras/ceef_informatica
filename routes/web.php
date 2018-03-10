@@ -123,3 +123,19 @@ Route::post('admin/create/plan/save','Admin\AdminController@addPlan')->name('Cre
 Route::get('admin/edit/plan','Admin\AdminController@editPlanIndex')->name('editPlan');
 Route::post('admin/edit/plan/save','Admin\AdminController@editPlan')->name('planSave');
 Route::post('admin/delete/plan','Admin\AdminController@deletePlan')->name('planDelete');
+
+//TODO Project
+Route::get('admin/create/project','Admin\AdminController@addProjectIndex')->name('CreateProject');
+Route::post('admin/create/project/save','Admin\AdminController@addProject')->name('CreateProjectSave');
+Route::get('admin/edit/project','Admin\AdminController@editProjectIndex')->name('editProject');
+Route::post('admin/edit/project/save','Admin\AdminController@editProject')->name('projectSave');
+Route::post('admin/delete/project','Admin\AdminController@deleteProject')->name('projectDelete');
+
+//TODO Project Gallery
+
+Route::get('admin/projects/gallery/upload','Admin\AdminController@ProjectGalleryUploadIndex')->name('ProjectGalleryUploadIndex');
+Route::get('admin/projects/gallery/view','Admin\AdminController@ProjectGalleryShow')->name('ProjectGalleryShow');
+
+Route::post('admin/projects/gallery/upload/done','Admin\AdminController@ProjectPhotoUpload')->name('ProjectImageUpload');
+
+Route::post('admin/delete/photo','Admin\AdminController@deletePhoto')->name('deletePhoto');

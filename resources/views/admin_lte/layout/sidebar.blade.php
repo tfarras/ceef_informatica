@@ -19,6 +19,7 @@
                     <li class="{{ Request::is('admin/create/article*')  ? 'active' : ''  }}"><a href="{{route('CreateArticle')}}"><i class="fa fa-circle-o"></i> Articol</a></li>
                     <li class="{{ Request::is('admin/create/course*')  ? 'active' : ''  }}"><a href="{{route('CreateCourse')}}"><i class="fa fa-circle-o"></i> Curs</a></li>
                     <li class="{{ Request::is('admin/create/plan*')  ? 'active' : ''  }}"><a href="{{route('CreatePlan')}}"><i class="fa fa-circle-o"></i> Plan de învățământ</a></li>
+                    <li class="{{ Request::is('admin/create/project*')  ? 'active' : ''  }}"><a href="{{route('CreateProject')}}"><i class="fa fa-circle-o"></i> Lucrare de diplomă</a></li>
 
                 </ul>
             </li>
@@ -132,7 +133,41 @@
                                 </form></li>
                         </ul>
                     </li>
+                    <li class="treeview {{ Request::is('admin/edit/article*')  ? 'active menu-open' : ''  }}">
+                        <a href="#"><i class="fa fa-circle-o"></i> Lucrare de diplomă
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu" >
+                            <li><form method="get" action="{{route('editProject')}}">
+                                    <select name="id" class="form-control select2 select-dark" style="width: 75%">
+                                        @php
+                                            $projects=\App\Project::all();
+                                        @endphp
+                                        @foreach($projects as $project)
+                                            <option value="{{$project->id}}">{{$project->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" class="btn btn-xs bg-navy" value="Edit"/>
+                                </form></li>
+                        </ul>
+                    </li>
                 </ul>
+
+            <li class="treeview {{ Request::is('admin/projects/gallery*')  ? 'active menu-open' : ''  }}">
+                <a href="#">
+                    <i class="fa fa-image"></i>
+                    <span>Galerie (Lucrări de diplomă)</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ Request::is('admin/projects/gallery/upload*')  ? 'active ' : ''  }}"><a href="{{route('ProjectGalleryUploadIndex')}}"><i class="fa fa-circle-o"></i> Încarcă</a></li>
+                    <li class="{{ Request::is('admin/projects/gallery/view*')  ? 'active ' : ''  }}"><a href="{{route('ProjectGalleryShow')}}"><i class="fa fa-circle-o"></i> Vizioneză</a></li>
+                </ul>
+            </li>
             <li class="treeview {{ Request::is('admin/gallery*')  ? 'active menu-open' : ''  }}">
                 <a href="#">
                     <i class="fa fa-image"></i>

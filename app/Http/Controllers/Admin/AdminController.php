@@ -8,7 +8,9 @@ use App\Course;
 use App\Event;
 use App\EventImage;
 use App\Image;
+use App\PhotoProject;
 use App\Plan;
+use App\Project;
 use Carbon\Carbon;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
@@ -668,13 +670,15 @@ $teacher->image=$imageName;
         $articles=Article::all();
         $courses=Course::all();
         $plans=Plan::all();
+        $projects=Project::all();
         return view('admin_lte.delete-all')
             ->with('events',$events)
             ->with('teachers',$teachers)
             ->with('absolvents',$absolvents)
             ->with('articles',$articles)
             ->with('courses',$courses)
-            ->with('plans',$plans);
+            ->with('plans',$plans)
+            ->with('projects', $projects);
     }
 
     public function deleteTeacher(Request $request){
@@ -943,26 +947,154 @@ $teacher->image=$imageName;
 
 
     public function addProjectIndex(){
+        return view('admin_lte.createProject');
+    }
+
+    public function addProject(Request $request){
+        $name=$request->input('title');
+        $description=$request->input('description');
+        $student=$request->input('student');
+        $image=$request->file('image');
+
+        if(!$name){
+            return redirect()->back()->with('error_message','Întroduceți denumirea!');
+        }
+
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descrierea!');
+        }
+        if(!$image){
+            return redirect()->back()->with('error_message','Alegeți imaginea!');
+        }
+        $extensions=['png','jpg','jpeg','gif'];
+        if(!in_array($image->guessClientExtension(),$extensions)){
+            return redirect()->back()->with('error_message','Extension of image is not supported !');
+        }
+        $imageName=date('m-d-Y_hia').uniqid().'.'.$image->guessClientExtension();
+        $path=$image->storeAs('images/projects',$imageName,'uploads');
+
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+
+        $project= new Project();
+        $project->name=$name;
+        $project->description=$description;
+        $project->student=$student;
+        $project->logo=$path;
+        $project->save();
+
+        return redirect()->back()->with('message','Lucrarea a fost salvata cu succes !');
+    }
+
+    public function editProjectIndex(Request $request){
+        $project=Project::find($request->input('id'));
+
+        return view('admin_lte.editProject')->with('project',$project);
 
     }
 
-    public function addProject(){
+    public function editProject(Request $request){
+        $name=$request->input('title');
+        $description=$request->input('description');
+        $student=$request->input('student');
+        $image=$request->file('image');
 
+        if(!$name){
+            return redirect()->back()->with('error_message','Întroduceți denumirea!');
+        }
+
+        if(!$description){
+            return redirect()->back()->with('error_message','Întroduceți descrierea!');
+        }
+        $project=Project::find($request->input('id'));
+        $project->name=$name;
+        $description= str_replace('<img','<img class="img-responsive"',$description);
+        $project->description=$description;
+        $project->student=$student;
+        if($image){
+            $extensions=['png','jpg','jpeg','gif'];
+            if(!in_array($image->guessClientExtension(),$extensions)){
+                return redirect()->back()->with('error_message','Extension of image is not supported !');
+            }
+            $imageName=date('m-d-Y_hia').uniqid().'.'.$image->guessClientExtension();
+            $path=$image->storeAs('images/projects',$imageName,'uploads');
+            unlink($project->logo);
+            $project->logo=$path;
+        }
+        $project->save();
+
+        return redirect()->back()->with('message','Lucrarea a fost salvata cu succes !');
     }
 
-    public function editProjectIndex(){
+    public function deleteProject(Request $request){
 
-    }
+        $project=Plan::find($request->input('id'));
+        unlink($project->logo);
+        Plan::destroy($request->input('id'));
 
-    public function editProject(){
-
-    }
-
-    public function deleteProject(){
-
+        return redirect()->back()->with('message','Lucrare de diplomă a fost stearsă cu succes !');
     }
 
     //TODO Projects gallery
 
+    public function ProjectGalleryUploadIndex(){
+
+        return view('admin_lte.ProjectGalleryUploadIndex');
+    }
+
+    public function ProjectPhotoUpload(Request $input){
+        $files = $input->file('files');
+        $json = array(
+            'files' => array()
+        );
+        $extensions=['png','jpg','jpeg','gif'];
+        foreach ($files as $file){
+            $filename = $file->getClientOriginalName();
+            if(!in_array($file->guessClientExtension(),$extensions)){
+                $json['files'][] = array(
+                    'name' => $filename,
+                    'size' => $file->getSize(),
+                    'type' => $file->getMimeType(),
+                    'error' => 'Extension of image is not supported !'
+                );
+            }else{
+                $imageName=date('m-d-Y_hia').uniqid().'.'.$file->guessClientExtension();
+                $path=$file->storeAs('images/projects/gallery',$imageName,'uploads');
+                $upload= new PhotoProject();
+                $upload->path=$path;
+                $upload->save();
+
+                $json['files'][] = array(
+                    'name' => $filename,
+                    'size' => $file->getSize(),
+                    'type' => $file->getMimeType(),
+                    'success' => 'Success !',
+                );
+            }
+
+        }
+        return \response()->json($json);
+    }
+
+    public function ProjectGalleryShow(){
+
+        $images=PhotoProject::all();
+
+        return view('admin_lte.ProjectGalleryView')->with('images',$images);
+
+    }
+
+    public function deletePhoto(Request $request){
+        $path=$request->input('path');
+
+        unlink($path);
+        if(Image::where('path',$path)->first())
+        Image::where('path',$path)->first()->delete();
+        elseif(PhotoProject::where('path',$path)->first())
+        PhotoProject::where('path',$path)->first()->delete();
+
+
+
+        return redirect()->back()->with('message','Imaginea a fost stearsa !');
+    }
 
 }

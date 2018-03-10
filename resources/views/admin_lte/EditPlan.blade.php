@@ -63,7 +63,6 @@
 
         $("#input-b1").fileinput({
             showUpload:false,
-            required: true,
             allowedFileExtensions: ["pdf"],
             initialPreview: [
                 $('#fileURL').data('url')

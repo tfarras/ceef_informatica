@@ -190,6 +190,35 @@
                 </div>
             </div>
         </div>
+        <div class="col col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Lucrări de diplomă</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form">
+                        <form method="post" action="{{route('projectDelete')}}">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Alegeți lucrarea:</label>
+                                    <select id="project" name="id" class="form-control select2" title="project">
+                                        <option></option>
+                                        @foreach($projects as $project)
+                                            <option value="{{$project->id}}">{{$project->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    {{@csrf_field()}}
+                                    <button class="btn btn-success">Șterge</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @stop
@@ -214,6 +243,9 @@
             });
             $('#plan').select2({
                 placeholder:"Plan de învățământ"
+            });
+            $('#project').select2({
+                placeholder:"Lucrare de diplomă"
             });
         });
     </script>
