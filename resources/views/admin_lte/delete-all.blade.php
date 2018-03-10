@@ -161,6 +161,35 @@
                 </div>
             </div>
         </div>
+        <div class="col col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Planuri de învățământ</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form">
+                        <form method="post" action="{{route('planDelete')}}">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Alegeți plan:</label>
+                                    <select id="plan" name="id" class="form-control select2" title="plan">
+                                        <option></option>
+                                        @foreach($plans as $plan)
+                                            <option value="{{$plan->id}}">{{$plan->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    {{@csrf_field()}}
+                                    <button class="btn btn-success">Șterge</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @stop
@@ -182,6 +211,9 @@
             });
             $('#curs').select2({
                 placeholder:"Curs"
+            });
+            $('#plan').select2({
+                placeholder:"Plan de învățământ"
             });
         });
     </script>

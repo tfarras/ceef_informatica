@@ -18,6 +18,7 @@
                     <li class="{{ Request::is('admin/create/absolvent*')  ? 'active' : ''  }}"><a href="{{route('AbsolventCreateIndex')}}"><i class="fa fa-circle-o"></i> Absolvent</a></li>
                     <li class="{{ Request::is('admin/create/article*')  ? 'active' : ''  }}"><a href="{{route('CreateArticle')}}"><i class="fa fa-circle-o"></i> Articol</a></li>
                     <li class="{{ Request::is('admin/create/course*')  ? 'active' : ''  }}"><a href="{{route('CreateCourse')}}"><i class="fa fa-circle-o"></i> Curs</a></li>
+                    <li class="{{ Request::is('admin/create/plan*')  ? 'active' : ''  }}"><a href="{{route('CreatePlan')}}"><i class="fa fa-circle-o"></i> Plan de învățământ</a></li>
 
                 </ul>
             </li>
@@ -105,6 +106,26 @@
                                         @endphp
                                         @foreach($courses as $course)
                                             <option value="{{$course->id}}">{{$course->title}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" class="btn btn-xs bg-navy" value="Edit"/>
+                                </form></li>
+                        </ul>
+                    </li>
+                    <li class="treeview {{ Request::is('admin/edit/article*')  ? 'active menu-open' : ''  }}">
+                        <a href="#"><i class="fa fa-circle-o"></i> Plan de învățământ
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu" >
+                            <li><form method="get" action="{{route('editPlan')}}">
+                                    <select name="id" class="form-control select2 select-dark" style="width: 75%">
+                                        @php
+                                            $plans=\App\Plan::all();
+                                        @endphp
+                                        @foreach($plans as $plan)
+                                            <option value="{{$plan->id}}">{{$plan->name}}</option>
                                         @endforeach
                                     </select>
                                     <input type="submit" class="btn btn-xs bg-navy" value="Edit"/>

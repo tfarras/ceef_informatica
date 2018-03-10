@@ -116,3 +116,10 @@ Route::post('admin/create/course/save','Admin\AdminController@createCourseSave')
 Route::get('admin/edit/course','Admin\AdminController@editCourseIndex')->name('editCourse');
 Route::post('admin/edit/course/save','Admin\AdminController@editcourseSave')->name('CourseSave');
 Route::post('admin/delete/course','Admin\AdminController@deleteCourse')->name('CourseDelete');
+
+//TODO PLAN
+Route::get('admin/create/plan','Admin\AdminController@addPlanIndex')->name('CreatePlan');
+Route::post('admin/create/plan/save','Admin\AdminController@addPlan')->name('CreatePlanSave');
+Route::get('admin/edit/plan','Admin\AdminController@editPlanIndex')->name('editPlan');
+Route::post('admin/edit/plan/save','Admin\AdminController@editPlan')->name('planSave');
+Route::post('admin/delete/plan','Admin\AdminController@deletePlan')->name('planDelete');

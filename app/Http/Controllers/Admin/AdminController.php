@@ -8,6 +8,7 @@ use App\Course;
 use App\Event;
 use App\EventImage;
 use App\Image;
+use App\Plan;
 use Carbon\Carbon;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
@@ -666,12 +667,14 @@ $teacher->image=$imageName;
         $absolvents=Absolvent::all();
         $articles=Article::all();
         $courses=Course::all();
+        $plans=Plan::all();
         return view('admin_lte.delete-all')
             ->with('events',$events)
             ->with('teachers',$teachers)
             ->with('absolvents',$absolvents)
             ->with('articles',$articles)
-            ->with('courses',$courses);
+            ->with('courses',$courses)
+            ->with('plans',$plans);
     }
 
     public function deleteTeacher(Request $request){
@@ -834,23 +837,106 @@ $teacher->image=$imageName;
     //TODO PLANURI DE INVATAMINT
 
     public function addPlanIndex(){
+        $year=date('Y-m-d');
+        $start_date=date('Y-m-d',strtotime('-3 year',strtotime($year)));
+        $start_date=Carbon::createFromFormat('Y-m-d',$start_date);
+        $end_date=date('Y-m-d',strtotime('+1 year',strtotime($year)));
+        $end_date=Carbon::createFromFormat('Y-m-d',$end_date);
+        $dates = [];
+
+        for($date = $start_date; $date->lte($end_date); $date->addYear()) {
+            $dates[] = $date->format('Y');
+        }
+        return view('admin_lte.CreatePlan')->with('dates',$dates);
+    }
+
+    public function addPlan(Request $request){
+        $year=$request->input('year');
+        $title=$request->input('title');
+        $file=$request->file('file');
+
+        if(!$year){
+            return redirect()->back()->with('error_message','Alegeți anul !');
+        }
+        if(!$title){
+            return redirect()->back()->with('error_message','Alegeți denumirea !');
+        }
+        if(!$file){
+            return redirect()->back()->with('error_message','Alegeți file !');
+        }
+
+        $extensions=['pdf'];
+        if(!in_array($file->guessClientExtension(),$extensions)){
+            return redirect()->back()->with('error_message','Extension of file is not supported !');
+        }
+        $imageName=date('m-d-Y_hia').uniqid().'.'.$file->guessClientExtension();
+        $path=$file->storeAs('files/plans',$imageName,'uploads');
+
+        $plan= new Plan();
+        $plan->name=$title;
+        $plan->year=$year;
+        $plan->path_to_file=$path;
+        $plan->save();
+
+        return redirect()->back()->with('message','Plan a fost salvat cu succes !');
+
 
     }
 
-    public function addPlan(){
+    public function editPlanIndex(Request $request){
+        $plan=Plan::find($request->input('id'));
+        $year=date('Y-m-d');
+        $start_date=date('Y-m-d',strtotime('-3 year',strtotime($year)));
+        $start_date=Carbon::createFromFormat('Y-m-d',$start_date);
+        $end_date=date('Y-m-d',strtotime('+1 year',strtotime($year)));
+        $end_date=Carbon::createFromFormat('Y-m-d',$end_date);
+        $dates = [];
+
+        for($date = $start_date; $date->lte($end_date); $date->addYear()) {
+            $dates[] = $date->format('Y');
+        }
+        return view('admin_lte.EditPlan')->with('plan',$plan)->with('dates',$dates);
 
     }
 
-    public function editPlanIndex(){
+    public function editPlan(Request $request){
+        $year=$request->input('year');
+        $title=$request->input('title');
+        $file=$request->file('file');
+        if(!$year){
+            return redirect()->back()->with('error_message','Alegeți anul !');
+        }
+        if(!$title){
+            return redirect()->back()->with('error_message','Alegeți denumirea !');
+        }
+
+        $plan=Plan::find($request->input('id'));
+        $plan->name=$title;
+        $plan->year=$year;
+        if($file){
+            $extensions=['pdf'];
+            if(!in_array($file->guessClientExtension(),$extensions)){
+                return redirect()->back()->with('error_message','Extension of file is not supported !');
+            }
+            $imageName=date('m-d-Y_hia').uniqid().'.'.$file->guessClientExtension();
+            $path=$file->storeAs('files/plans',$imageName,'uploads');
+            unlink($plan->path_to_file);
+            $plan->path_to_file=$path;
+        }
+
+        $plan->save();
+
+        return redirect()->back()->with('message','Plan a fost editat cu succes !');
 
     }
 
-    public function editPlan(){
+    public function deletePlan(Request $request){
+        $plan=Plan::find($request->input('id'));
+        unlink($plan->path_to_file);
+        Plan::destroy($request->input('id'
+        ));
 
-    }
-
-    public function deletePlan(){
-
+        return redirect()->back()->with('message','Plan a fost sters cu succes !');
     }
 
     //TODO PROIECTE
