@@ -139,3 +139,8 @@ Route::get('admin/projects/gallery/view','Admin\AdminController@ProjectGallerySh
 Route::post('admin/projects/gallery/upload/done','Admin\AdminController@ProjectPhotoUpload')->name('ProjectImageUpload');
 
 Route::post('admin/delete/photo','Admin\AdminController@deletePhoto')->name('deletePhoto');
+
+//TODO Change password
+
+Route::get('admin/change/data','Admin\AdminController@changeDataIndex')->name('changeData');
+Route::post('admin/change/data/save','Admin\AdminController@changeData')->name('saveData');

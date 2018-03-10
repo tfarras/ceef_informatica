@@ -11,6 +11,7 @@ use App\Image;
 use App\PhotoProject;
 use App\Plan;
 use App\Project;
+use App\User;
 use Carbon\Carbon;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
@@ -22,6 +23,9 @@ use App\DaysOfWeek;
 use Illuminate\Http\Response;
 use DateInterval;
 use DatePeriod;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Mockery\Exception;
 
 class AdminController extends Controller
@@ -29,6 +33,11 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+
+    public function Index(){
+
     }
 
     public function CreateTeacherIndex(){
@@ -1095,6 +1104,28 @@ $teacher->image=$imageName;
 
 
         return redirect()->back()->with('message','Imaginea a fost stearsa !');
+    }
+    public function changeDataIndex(){
+        $user=Auth::user();
+        return view('auth.changeData')->with('user',$user);
+    }
+
+    public function changeData(Request $request){
+        $user=User::find($request->input('id'));
+        if(Hash::check($request->input('xpassword'),$user->password)){
+            if(Hash::check($request->input('code'),$user->security)){
+                $user->password=bcrypt($request->input('ypassword'));
+                $user->security=bcrypt($request->input('newcode'));
+                $user->save();
+                Session::flush();
+                return redirect(route('AdminHome'));
+            }else{
+
+                return redirect(route('AdminHome'))->with('error_message','Incorrect security code !');
+            }
+        }else{
+            return redirect(route('AdminHome'))->with('error_message','Incorrect password');
+        }
     }
 
 }
