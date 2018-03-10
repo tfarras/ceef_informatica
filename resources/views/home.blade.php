@@ -1,80 +1,154 @@
-@extends('admin.layouts.app')
+@extends('admin_lte.layout.app')
+@section('Page Name','Dashboard')
+@section('Page desc','Control Panel')
 @section('styles')
-    <link rel="stylesheet" href="/css/profile.min.css">
-    <link rel="stylesheet" href="/css/components.css">
+
 @stop
 @section('content')
-    <div class="divider"></div>
-    <a href="/logout" style="float: right; margin-right: 1em;" >
-        <button type="button" class="btn btn-info" >
-            <span class="glyphicon glyphicon-log-out"></span>Log out
-        </button>
-        </a>
-    <div class="container" style="margin-bottom: 1em; margin-top: 5em; width: 75%;">
-        @if(isset($teacher))
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-sidebar" style="background-color: white !important;">
-                    <!-- PORTLET MAIN -->
-                    <div class="portlet light profile-sidebar-portlet ">
-                        <!-- SIDEBAR USERPIC -->
-                        <div class="profile-userpic">
-                            <img src="/images/teachers/{{$teacher->image}}" class="img-responsive" alt=""> </div>
-                        <!-- END SIDEBAR USERPIC -->
-                        <!-- SIDEBAR USER TITLE -->
-                        <div class="profile-usertitle" style="margin-bottom: 5em;">
-                            <div class="profile-usertitle-name">{{$teacher->first_name}} {{$teacher->last_name}}</div>
-                            <div class="profile-usertitle-job">{{$teacher->function}}</div>
-                            @if($teacher->didactic_level)
-                            <div class="profile-usertitle-job">{{$teacher->didactic_level}}</div>
-                            @endif
-                            <div class="profile-usertitle-job">{{$teacher->cabinet}}</div>
-                            <div class="profile-usertitle-job">{{$teacher->email}}</div>
-                        </div>
-                    </div>
-                </div>
+    @if ( session()->has('error_message') )
+        <div class="alert alert-danger alert-dismissable">{{ session()->get('error_message') }}</div>
+    @endif
 
+    @if ( session()->has('message') )
+        <div class="alert alert-success alert-dismissable">{{ session()->get('message') }}</div>
+    @endif
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-newspaper-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Articole</span>
+                    <span class="info-box-number">{{$articlesCount}}</span>
                 </div>
-            <div class="col-md-6">
-                <div class="portlet light portlet-fit" >
-                    <div class="portlet-body">
-                        <div class="mt-element-list">
-                            <div class="mt-list-head list-simple ext-1 font-white bg-blue-sharp">
-                                <div class="list-head-title-container">
-                                    <h3 class="list-title">Disciplinile predate</h3>
-                                </div>
-                            </div>
-                            <div class="mt-list-container list-simple ext-1">
-                                <ul>
-                                    @foreach($disciplines as $discipline)
-                                    @php
-                                    $discipline_name=\App\Discipline::where('id',$discipline->discipline_id)->first();
-                                    @endphp
-                                        <li class="mt-list-item">
-                                        <div class="list-item-content">
-                                            <h3 class="uppercase">
-                                                <a href="javascript:;">{{$discipline_name->name}}</a>
-                                            </h3>
-                                        </div>
-                                    </li>
-                                        @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-            @else
-            <div class="row">
-                <div class="col-lg12">
-                    <div class="alert alert-warning alert-dismissable" style="text-align: center;">No teacher selected.</div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-calendar-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Evenimente</span>
+                    <span class="info-box-number">{{$eventCount}}</span>
                 </div>
+                <!-- /.info-box-content -->
             </div>
-        @endif
-</div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-keyboard-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Cursuri</span>
+                    <span class="info-box-number">{{$courseCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-file-pdf-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Planuri de învățământ</span>
+                    <span class="info-box-number">{{$planCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-user-secret"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Profesori</span>
+                    <span class="info-box-number">{{$teachersCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Absolvenți</span>
+                    <span class="info-box-number">{{$absolventsCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-list-ul"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Discipline</span>
+                    <span class="info-box-number">{{$disciplinesCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-image"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Imagini pentru administrare</span>
+                    <span class="info-box-number">{{$imagesAdmin}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <div class="row">
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-certificate"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Lucrări de diplomă</span>
+                    <span class="info-box-number">{{$projectsCount}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Poze (Lucrări de diplomă)</span>
+                    <span class="info-box-number">{{$imagesProjects}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+    </div>
 @stop
 
 @section('scripts')
-    <script src="./js/layout.js" type="text/javascript"></script>
+
 @stop
