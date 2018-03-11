@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    $teachers=\App\Teacher::get();
-    return view('welcome')->with('teachers',$teachers);
-});
+Route::get('/','MainController@index')->name('siteIndex');
 
 Route::get('login', [
     'as' => 'login',

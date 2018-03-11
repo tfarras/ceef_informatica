@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\Event;
 use Illuminate\Http\Request;
 use App\Teacher;
 use App\TeacherDiscipline;
@@ -11,6 +13,15 @@ class MainController extends Controller
     public function __construct()
     {
 
+    }
+
+    public function index(){
+        $teachers=\App\Teacher::get();
+        $news=Article::orderBy('id','desc')->take(2)->get();
+        $events=Event::orderBy('id','desc')->take(4)->get();
+        return view('welcome')->with('teachers',$teachers)
+            ->with('news',$news)->with('events',$events)
+            ;
     }
 
     public function teacherIndex(Request $request){
