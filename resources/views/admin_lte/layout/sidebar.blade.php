@@ -93,7 +93,7 @@
                                 </form></li>
                         </ul>
                     </li>
-                    <li class="treeview {{ Request::is('admin/edit/article*')  ? 'active menu-open' : ''  }}">
+                    <li class="treeview {{ Request::is('admin/edit/course*')  ? 'active menu-open' : ''  }}">
                         <a href="#"><i class="fa fa-circle-o"></i> Curs
                             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -113,7 +113,7 @@
                                 </form></li>
                         </ul>
                     </li>
-                    <li class="treeview {{ Request::is('admin/edit/article*')  ? 'active menu-open' : ''  }}">
+                    <li class="treeview {{ Request::is('admin/edit/plan*')  ? 'active menu-open' : ''  }}">
                         <a href="#"><i class="fa fa-circle-o"></i> Plan de învățământ
                             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -133,7 +133,7 @@
                                 </form></li>
                         </ul>
                     </li>
-                    <li class="treeview {{ Request::is('admin/edit/article*')  ? 'active menu-open' : ''  }}">
+                    <li class="treeview {{ Request::is('admin/edit/project*')  ? 'active menu-open' : ''  }}">
                         <a href="#"><i class="fa fa-circle-o"></i> Lucrare de diplomă
                             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>

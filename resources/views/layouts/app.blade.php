@@ -9,6 +9,11 @@
 
     <link rel="stylesheet" media="all" href="/css/style.css">
     <link rel="stylesheet" media="all" href="/css/effects.css">
+    <style>
+        .dropdown-item{
+            text-align: center;
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -40,7 +45,17 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
 <script src="/js/plugins.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+<script>
+    $('.dropdown-toggle').dropdown();
+</script>
 <script src="/js/main.js"></script>
+<script>
+    function scrollToFooter(){
+        $("html, body").animate({ scrollTop: $('#footer').offset().top }, 1000);
+    }
+</script>
 @yield('scripts')
 </body>
 </html>

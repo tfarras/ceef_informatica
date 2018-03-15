@@ -16,29 +16,11 @@
                     <li class="facebook"><a href="https://www.facebook.com/CentrulDeExcelentaInEconomieSiFInante/">CEEF</a></li>
                 </ul>
             </article>
-            <article class="col-4">
-                <div class="fb-comments" style="" data-href="https://www.facebook.com/informatica.ceef/" data-colorscheme="dark" data-numposts="5"></div>
+            <article class="col col-md-4 col-lg-4">
+                <div class="fb-comments col-12" style="" data-href="https://www.facebook.com/informatica.ceef/" data-colorscheme="dark" data-numposts="5"></div>
             </article>
         </section>
-        <p class="copy">Copyright 2017 Informatica CEEF. Designed by <a href="https://vk.com/al_farras" title="Designed by Farras." target="_blank">Farras</a>. All rights reserved.</p>
+        <p class="copy">Copyright 2017-{{date('Y')}} Informatica CEEF. Developed by <a href="https://tfarras.github.io/" title="Developed by Farras." target="_blank">Farras</a>. </p>
     </div>
     <!-- / container -->
 </footer>
-<!-- / footer -->
-
-<div id="fancy">
-    <h2>Request information</h2>
-    <form action="#">
-        <div class="left">
-            <fieldset class="mail"><input placeholder="Email address..." type="text"></fieldset>
-            <fieldset class="name"><input placeholder="Name..." type="text"></fieldset>
-            <fieldset class="subject"><select><option>Choose subject...</option><option>Choose subject...</option><option>Choose subject...</option></select></fieldset>
-        </div>
-        <div class="right">
-            <fieldset class="question"><textarea placeholder="Question..."></textarea></fieldset>
-        </div>
-        <div class="btn-holder">
-            <button class="btn blue" type="submit">Send request</button>
-        </div>
-    </form>
-</div>

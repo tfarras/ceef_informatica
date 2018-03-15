@@ -8,33 +8,32 @@
 @stop
 @section('content')
     <div class="divider"></div>
-    <div class="container" style="margin-bottom: 1em; margin-top: 5em; width: 70%;">
+    <div class="container" style="margin-bottom: 1em; margin-top: 5em; width: 80%;">
         @if(isset($teacher))
             <div class="row">
-                <div class="col-lg-4" >
-                    <div class="profile-sidebar" style="background-color: white !important;">
+                <div class="col col-md-3" >
+                    <div class="profile-sidebar" style="background-color: #5c9bd1 !important;">
                         <!-- PORTLET MAIN -->
-                        <div class="portlet light profile-sidebar-portlet ">
+                        <div class="portlet profile-sidebar-portlet " >
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
                                 <img src="/images/teachers/{{$teacher->image}}" class="img-responsive" alt=""> </div>
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
-                            <div class="profile-usertitle" style="margin-bottom: 5em;">
-                                <div class="profile-usertitle-name">{{$teacher->first_name}} {{$teacher->last_name}}</div>
-                                <div class="profile-usertitle-job">{{$teacher->function}}</div>
+                            <div class="profile-usertitle" style="margin-bottom: 5em; " >
+                                <div class="profile-usertitle-name" style="color:white !important;">{{$teacher->first_name}} {{$teacher->last_name}}</div>
+                                <div class="profile-usertitle-job" style="color:white !important;">{{$teacher->function}}</div>
                                 @if($teacher->didactic_level)
-                                    <div class="profile-usertitle-job">Gradul Didactic: {{$teacher->didactic_level}}</div>
+                                    <div class="profile-usertitle-job" style="color:white !important;">Gradul Didactic: {{$teacher->didactic_level}}</div>
                                 @endif
-                                <div class="profile-usertitle-job">Cabinet: {{$teacher->cabinet}}</div>
-                                <div class="profile-usertitle-job">Email: {{$teacher->email}}</div>
+                                <div class="profile-usertitle-job" style="color:white !important;">Cabinet: {{$teacher->cabinet}}</div>
+                                <div class="profile-usertitle-job" style="color:white !important;">Email: {{$teacher->email}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4" >
+                <div class="col col-md-4" >
                     <div class="portlet light portlet-fit" >
-                        <div class="portlet-body">
                             <div class="mt-element-list">
                                 <div class="mt-list-head list-simple ext-1 font-white bg-blue-sharp">
                                     <div class="list-head-title-container">
@@ -56,10 +55,9 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col col-md-5">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover" style="background-color:#ffffff ">
                             <thead>

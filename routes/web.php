@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    $teachers=\App\Teacher::get();
-    return view('welcome')->with('teachers',$teachers);
-});
+Route::get('/','MainController@index')->name('siteIndex');
 
 Route::get('login', [
     'as' => 'login',
@@ -144,3 +141,17 @@ Route::post('admin/delete/photo','Admin\AdminController@deletePhoto')->name('del
 
 Route::get('admin/change/data','Admin\AdminController@changeDataIndex')->name('changeData');
 Route::post('admin/change/data/save','Admin\AdminController@changeData')->name('saveData');
+
+
+//TODO MAIN SITE
+Route::get('plans','MainController@PlansIndex')->name('plansIndex');
+Route::get('plans/{id}','MainController@planShow')->name('planShow');
+Route::get('events','MainController@eventsIndex')->name('eventsIndex');
+Route::get('events/{id}','MainController@eventShow')->name('eventShow');
+Route::get('articles/{id}','MainController@articleShow')->name('articleShow');
+Route::get('articles','MainController@articlesIndex')->name('articlesIndex');
+Route::get('courses/{id}','MainController@courseShow')->name('courseShow');
+Route::get('course','MainController@coursesIndex')->name('coursesIndex');
+Route::get('absolvent','MainController@absolventIndex')->name('absolventIndex');
+Route::get('projects','MainController@projectsIndex')->name('projectsIndex');
+Route::get('projects/gallery','MainController@projectsGalleryIndex')->name('projectsGalleryIndex');
