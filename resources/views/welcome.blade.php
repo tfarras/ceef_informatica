@@ -71,14 +71,14 @@
     </section>
     <section class="news posts" style="padding: 57px 0 0 0; background: #2c4167 url(/images/bg_white_arrow.png) no-repeat 50% 0;">
         <div class="container" style="margin: 0px auto;">
-            <h2>ultimele noutăți</h2>
+            <h2></h2>
             <article>
                 <div class="pic"><img width="121" src="images/2.png" alt=""></div>
                 <div class="info">
                     <h3>Cele mai bune metode de predare</h3>
                     <p>"Orice educație este auto-educație, iar noi, ca dascăli și educatori, creăm de fapt doar contextul în care copilul se autoeducă. Trebuie să realizăm contextul optim, pentru ca, prin noi, copilul să se educe singur, așa cum trebuie să se educe el prin propriul său destin lăuntric".- Rudolf Steiner</p>
 
-                    <a class="btn">Vezi planuri de învățământ</a>
+                    <a href="{{route('plansIndex')}}" class="btn">Vezi planuri de învățământ</a>
                 </div>
             </article>
             <article>
@@ -86,26 +86,26 @@
                 <div class="info">
                     <h3>Rezultate extraordinare a studenților</h3>
                     <p>Omul este un lucru imperfect ce tinde fără încetare la ceva mai bun și mai mare decât el însuși, menționa Descartes. Fiecare dintre noi prin încercarea de-a ne perfecționa, perfecționăm lumea în care trăim. Învățătura este cea care ne face să vedem lucrurile cu alți ochi. Perfecțiunea vine din învățătură. </p>
-                    <a class="btn">Vezi absolvenții noștri</a>
+                    <a class="btn" href="{{route('absolventIndex')}}">Vezi absolvenții noștri</a>
                 </div>
             </article>
 <div></div>
         </div>
 
-        <div class="bg-bottom" style="margin-top: 2em"></div>
+        <div class="bg-bottom" style="margin-top: 6em;"></div>
         <!-- / container -->
     </section>
-
-    <section class="news with-bg-bottom" style="background: #2c4167 url(/images/bg_white_arrow.png) no-repeat 50% 0;">
+@if(count($news)>0)
+    <section class="news with-bg-bottom" style="  background: #2c4167 url(/images/bg_white_arrow.png) no-repeat 50% 0;">
         <div class="container" style="margin: 0px auto;">
-            <h2>ultimele noutăți</h2>
+            <h2 style="margin-top: 1em;">ultimele noutăți</h2>
             <article class="col-md-6" style="">
                 <div class="pic"><img src="images/ico_information.png" alt=""></div>
                 <div class="info" style="">
                     <h4>{{$news[0]->title}} </h4>
                     <p class="date">{{date('d M Y',strtotime($news[0]->created_at))}}</p>
                     <div class="text-news"> {!!$news[0]->description !!} </div>
-                    <a class="more" href="#">Read more</a>
+                    <a class="more" href="{{route('articleShow',$news[0]->id)}}">Read more</a>
                 </div>
             </article>
             <article class="col-md-6" style="">
@@ -114,16 +114,17 @@
                     <h4>{{$news[1]->title}} </h4>
                     <p class="date">{{date('d M Y',strtotime($news[1]->created_at))}}</p>
                     <div class="text-news"> {!!$news[1]->description !!} </div>
-                    <a class="more" href="#">Read more</a>
+                    <a class="more" href="{{route('articleShow',$news[1]->id)}}">Read more</a>
                 </div>
             </article>
             <div class="btn-holder" style="text-align: center;padding: 50px 0 0 0;clear: both;">
-                <a class="btn"  href="#">Vezi mai multe</a>
+                <a class="btn"  href="{{route('articlesIndex')}}">Vezi mai multe</a>
             </div>
         </div>
         <!-- / container -->
     </section>
-
+@endif
+    @if(count($events)>0)
     <section class="events">
         <div class="container">
             <h2>Evenimente</h2>
@@ -136,17 +137,18 @@
                     <div class="info">
                         <h4 class="event-name">{{$event->name}}</h4>
                         <div class="text-news-short"> {!!$event->description !!} </div>
-                        <a class="more" href="#">Read more</a>
+                        <a class="more" href="{{route('eventShow',$event->id)}}">Citește mai departe</a>
                     </div>
                 </article>
             @endforeach
 
                 <div class="btn-holder" style="padding: 50px 0 0 0;clear: both; text-align: center">
-                    <a class="btn-blue" href="#">Vezi mai multe</a>
+                    <a class="btn-blue" href="{{route('eventsIndex')}}">Vezi mai multe</a>
                 </div>
         </div>
         <!-- / container -->
     </section>
+    @endif
     @stop
 
 @section('scripts')

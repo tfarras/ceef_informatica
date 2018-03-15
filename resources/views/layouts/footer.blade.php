@@ -20,8 +20,7 @@
                 <div class="fb-comments col-12" style="" data-href="https://www.facebook.com/informatica.ceef/" data-colorscheme="dark" data-numposts="5"></div>
             </article>
         </section>
-        <p class="copy">Copyright 2017 Informatica CEEF. Designed by <a href="https://vk.com/al_farras" title="Designed by Farras." target="_blank">Farras</a>. All rights reserved.</p>
+        <p class="copy">Copyright 2017-{{date('Y')}} Informatica CEEF. Developed by <a href="https://tfarras.github.io/" title="Developed by Farras." target="_blank">Farras</a>. </p>
     </div>
     <!-- / container -->
 </footer>
-<!-- / footer -->

@@ -6,6 +6,7 @@ use App\Absolvent;
 use App\Article;
 use App\Course;
 use App\Discipline;
+use App\Event;
 use App\Image;
 use App\PhotoProject;
 use App\Plan;
@@ -34,7 +35,7 @@ class HomeController extends Controller
     public function index()
     {
         $articlesCount=Article::all()->count();
-        $eventCount=Article::all()->count();
+        $eventCount=Event::all()->count();
         $courseCount=Course::all()->count();
         $planCount=Plan::all()->count();
         $teachersCount=Teacher::all()->count();
