@@ -8,9 +8,10 @@
         <div class="menu-trigger"></div>
         <nav id="menu" class="">
             <ul>
-                <li><a href="{{route('coursesIndex')}}">Cursuri</a></li>
-                <li><a href="{{route('eventsIndex')}}">Evenimente</a></li>
+
                 <li><a href="{{route('articlesIndex')}}">Noutăți</a></li>
+                <li><a href="{{route('eventsIndex')}}">Evenimente</a></li>
+                <li><a href="{{route('coursesIndex')}}">Cursuri</a></li>
             </ul>
             <ul >
                 <li><a href="{{route('absolventIndex')}}">Absolvenți</a></li>
@@ -23,7 +24,7 @@
                         <a class="dropdown-item" href="{{route('projectsGalleryIndex')}}" >Galerie</a>
                     </div>
                 </li>
-                <li><a href="#" onclick="scrollToFooter()" >Contact</a></li>
+                <li><a href="#" onclick="scrollToFooter()" >Contacte</a></li>
             </ul>
         </nav>
         <!-- / navigation -->

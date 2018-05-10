@@ -136,7 +136,7 @@
                     </div>
                     <div class="info">
                         <h4 class="event-name">{{$event->name}}</h4>
-                        <div class="text-news-short"> {!!$event->description !!} </div>
+                        <div class="text-news-short"> {{ strip_tags($event->description) }} </div>
                         <a class="more" href="{{route('eventShow',$event->id)}}">Citește mai departe</a>
                     </div>
                 </article>
