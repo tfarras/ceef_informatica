@@ -10,6 +10,7 @@
     <link rel="stylesheet" media="all" href="/css/style.css">
     <link rel="stylesheet" media="all" href="/css/effects.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="icon" href="/images/2.png">
     <style>
         .dropdown-item{
             text-align: center;
@@ -66,11 +67,25 @@
 <script type="text/javascript">
 $(window).scroll(function() {
     if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+        $('#return-to-top').fadeIn(200);// Fade in the arrow
+        $("#header2").fadeIn(200);
     } else {
         $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+        $('#header2').fadeOut(200);   // Else fade out the arrow
     }
 });
+$('#surseList').hover(function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+}, function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+});
+
+    function scrollSpec(){
+        $('html, body').animate({
+            scrollTop: $("#specialitati").offset().top
+        }, 1000);
+    }
+
 </script>
 @yield('scripts')
 </body>

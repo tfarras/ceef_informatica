@@ -155,3 +155,4 @@ Route::get('course','MainController@coursesIndex')->name('coursesIndex');
 Route::get('absolvent','MainController@absolventIndex')->name('absolventIndex');
 Route::get('projects','MainController@projectsIndex')->name('projectsIndex');
 Route::get('projects/gallery','MainController@projectsGalleryIndex')->name('projectsGalleryIndex');
+Route::get('teachers','MainController@showTeachers')->name('show.teachers');
