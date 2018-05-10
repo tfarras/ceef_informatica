@@ -99,6 +99,7 @@ Route::post('admin/delete/teacher','Admin\AdminController@deleteTeacher')->name(
 Route::post('admin/delete/event','Admin\AdminController@deleteEvent')->name('DeleteEvent');
 Route::post('admin/delete/absolvent','Admin\AdminController@deleteAbsolvent')->name('DeleteAbsolvent');
 Route::post('admin/delete/article','Admin\AdminController@deleteArticle')->name('DeleteArticle');
+Route::post('admin/delete/manual','Admin\AdminController@deleteManual')->name('deleteManual');
 
 //TODO Article
 Route::get('admin/create/article','Admin\AdminController@createArticle')->name('CreateArticle');
@@ -127,6 +128,10 @@ Route::post('admin/create/project/save','Admin\AdminController@addProject')->nam
 Route::get('admin/edit/project','Admin\AdminController@editProjectIndex')->name('editProject');
 Route::post('admin/edit/project/save','Admin\AdminController@editProject')->name('projectSave');
 Route::post('admin/delete/project','Admin\AdminController@deleteProject')->name('projectDelete');
+
+//TODO Bibliography
+Route::get('admin/create/bibliography','Admin\AdminController@createBibliographyIndex')->name('createBibliographyIndex');
+Route::post('admin/create/bibliography/save','Admin\AdminController@createBibliographySave')->name('createBibliographySave');
 
 //TODO Project Gallery
 

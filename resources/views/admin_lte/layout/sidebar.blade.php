@@ -20,6 +20,7 @@
                     <li class="{{ Request::is('admin/create/course*')  ? 'active' : ''  }}"><a href="{{route('CreateCourse')}}"><i class="fa fa-circle-o"></i> Curs</a></li>
                     <li class="{{ Request::is('admin/create/plan*')  ? 'active' : ''  }}"><a href="{{route('CreatePlan')}}"><i class="fa fa-circle-o"></i> Plan de învățământ</a></li>
                     <li class="{{ Request::is('admin/create/project*')  ? 'active' : ''  }}"><a href="{{route('CreateProject')}}"><i class="fa fa-circle-o"></i> Lucrare de diplomă</a></li>
+                    <li class="{{ Request::is('admin/create/bibliography*')  ? 'active' : ''  }}"><a href="{{route('createBibliographyIndex')}}"><i class="fa fa-circle-o"></i> Sursă bibliografică</a></li>
 
                 </ul>
             </li>
