@@ -161,3 +161,7 @@ Route::get('absolvent','MainController@absolventIndex')->name('absolventIndex');
 Route::get('projects','MainController@projectsIndex')->name('projectsIndex');
 Route::get('projects/gallery','MainController@projectsGalleryIndex')->name('projectsGalleryIndex');
 Route::get('teachers','MainController@showTeachers')->name('show.teachers');
+Route::get('bibliography','MainController@loadBibliography')->name('load.bibliography');
+Route::get('calendar',function (){
+    return view('main.calendar');
+})->name('calendar');

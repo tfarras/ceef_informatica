@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" media="all" href="/css/style.css">
     <link rel="stylesheet" media="all" href="/css/effects.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="icon" href="/images/2.png">
     <style>
         .dropdown-item{

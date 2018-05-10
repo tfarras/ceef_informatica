@@ -20,8 +20,9 @@
                         <a class="dropdown-item"  onclick="scrollSpec()">Specialități</a>
                         <a class="dropdown-item" href="{{route('coursesIndex')}}">Cursuri</a>
                         <a class="dropdown-item" href="{{route('show.teachers')}}">Profesori</a>
+                        <a class="dropdown-item" href="{{route('calendar')}}">Calendar academic</a>
                         <hr style="margin: 0.1em;">
-                        <a class="dropdown-item" href="#">Surse bibliografice</a>
+                        <a class="dropdown-item" href="{{route('load.bibliography')}}">Surse bibliografice</a>
                     </div>
                 </li>
             </ul>
@@ -60,8 +61,10 @@
                         <a class="dropdown-item" id="specBtn" onclick="scrollSpec();">Specialități</a>
                         <a class="dropdown-item" href="{{route('coursesIndex')}}">Cursuri</a>
                         <a class="dropdown-item" href="{{route('show.teachers')}}">Profesori</a>
+                        <a class="dropdown-item" href="{{route('calendar')}}">Calendar academic</a>
+
                         <hr style="margin: 0.1em;">
-                        <a class="dropdown-item" href="#">Surse bibliografice</a>
+                        <a class="dropdown-item" href="{{route('load.bibliography')}}">Surse bibliografice</a>
                     </div>
                 </li>
                 <li><a href="{{route('absolventIndex')}}">Absolvenți</a></li>

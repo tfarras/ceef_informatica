@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Absolvent;
 use App\Article;
 use App\Course;
+use App\Discipline;
 use App\Event;
 use App\EventImage;
 use App\PhotoProject;
@@ -116,5 +117,11 @@ class MainController extends Controller
     public function showTeachers(){
         $teachers=\App\Teacher::get();
         return view('main.profesori')->with('teachers',$teachers);
+    }
+
+    public function loadBibliography(){
+        $disciplines=Discipline::all();
+
+        return view('main.surse')->with('disciplines',$disciplines);
     }
 }
