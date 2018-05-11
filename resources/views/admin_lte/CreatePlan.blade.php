@@ -83,19 +83,6 @@
                     }
                 }
             });
-            $("#absolvent").validate({
-                rules: {
-                    firstname:{
-                        required: true
-                    },
-                    lastname: {
-                        required:true
-                    },
-                    promotion: {
-                        required: true
-                    }
-                }
-            });
         });
     </script>
 @stop

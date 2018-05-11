@@ -44,7 +44,8 @@ class DatabaseSeeder extends Seeder
             'Studii medii de specialitate',
             'TIC (Tehnologii informationale de comunicare)',
             'Sistem de gestiune a bazelor de date',
-            'Aplicații cu baze de date'
+            'Aplicații cu baze de date',
+            'Informatică'
         ];
 
         foreach ($list_disciplines as $list_discipline){
@@ -70,7 +71,7 @@ class DatabaseSeeder extends Seeder
         $bagrin->didactic_level='I';
         $bagrin->cabinet='518';
         $bagrin->email='dianabagrin@yahoo.com';
-        $bagrin->image='bagrin.png';
+        $bagrin->image='logo.png';
         $bagrin->save();
         $zatica= new Teacher();
         $zatica->first_name='Alexandru';
@@ -79,7 +80,7 @@ class DatabaseSeeder extends Seeder
         $zatica->didactic_level='II';
         $zatica->cabinet='514';
         $zatica->email='zatica.alexandru@gmail.com';
-        $zatica->image='zaticat.jpg';
+        $zatica->image='logo.png';
         $zatica->save();
         $ganea= new Teacher();
         $ganea->first_name='Ion';
@@ -88,7 +89,7 @@ class DatabaseSeeder extends Seeder
         $ganea->didactic_level='II';
         $ganea->cabinet='521';
         $ganea->email='iganea9@yahoo.com';
-        $ganea->image='ganea.jpg';
+        $ganea->image='logo.png';
         $ganea->save();
         $liseniuc= new Teacher();
         $liseniuc->first_name='Adrian';
@@ -96,7 +97,7 @@ class DatabaseSeeder extends Seeder
         $liseniuc->function='Profesor';
         $liseniuc->cabinet='516';
         $liseniuc->email='alyseniuc@gmail.com';
-        $liseniuc->image='liseniuc.jpg';
+        $liseniuc->image='logo.png';
         $liseniuc->save();
         $gurdis= new Teacher();
         $gurdis->first_name='Alina';
@@ -105,7 +106,7 @@ class DatabaseSeeder extends Seeder
         $gurdis->didactic_level='II';
         $gurdis->cabinet='523';
         $gurdis->email='gurdisalina@gmail.com';
-        $gurdis->image='gurdis.jpg';
+        $gurdis->image='logo.png';
         $gurdis->save();
         $gurdis= new Teacher();
         $gurdis->first_name='Galina';
@@ -114,7 +115,7 @@ class DatabaseSeeder extends Seeder
         $gurdis->didactic_level='I';
         $gurdis->cabinet='512';
         $gurdis->email='luncas.galina@gmail.com';
-        $gurdis->image='luncas.jpg';
+        $gurdis->image='logo.png';
         $gurdis->save();
         $tamara= new Teacher();
         $tamara->first_name='Tamara';
@@ -123,7 +124,7 @@ class DatabaseSeeder extends Seeder
         $tamara->didactic_level='II';
         $tamara->cabinet='23';
         $tamara->email='tamarazatica@yahoo.com';
-        $tamara->image='zatica.jpg';
+        $tamara->image='logo.png';
         $tamara->save();
         for ($i=1;$i<=5;$i++){
             $teachers=Teacher::get();

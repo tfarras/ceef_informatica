@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Absolvent;
 use App\Article;
 use App\Course;
+use App\Discipline;
 use App\Event;
 use App\EventImage;
 use App\PhotoProject;
@@ -24,7 +25,7 @@ class MainController extends Controller
     public function index(){
         $teachers=\App\Teacher::get();
         $news=Article::orderBy('id','desc')->take(2)->get();
-        $events=Event::orderBy('id','desc')->take(4)->get();
+        $events=Event::orderBy('date','desc')->take(4)->get();
         return view('welcome')->with('teachers',$teachers)
             ->with('news',$news)->with('events',$events)
             ;
@@ -58,7 +59,7 @@ class MainController extends Controller
     }
 
     public function eventsIndex(){
-        $events = Event::orderBy('id','desc')->paginate(4);
+        $events = Event::orderBy('date','desc')->paginate(4);
 
         return view('main.events')->with('events',$events);
     }
@@ -111,5 +112,16 @@ class MainController extends Controller
         $photos=PhotoProject::orderBy('id','desc')->paginate(20);
 
         return view('main.projectsGallery')->with('photos',$photos);
+    }
+
+    public function showTeachers(){
+        $teachers=\App\Teacher::get();
+        return view('main.profesori')->with('teachers',$teachers);
+    }
+
+    public function loadBibliography(){
+        $disciplines=Discipline::all();
+
+        return view('main.surse')->with('disciplines',$disciplines);
     }
 }

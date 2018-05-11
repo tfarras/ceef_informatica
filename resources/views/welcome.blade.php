@@ -50,21 +50,25 @@
         <div class="bg-bottom"></div>
     </div>
 
-    <section class="posts">
-        <div class="container" align="center" style="width: 100%; text-align: center;">
-            <h2>Profesori</h2>
-            <div class="col-lg-12 col-md-4 col-xs-6 ">
-                @foreach($teachers as $teacher)
-                    <a href="{{route('teacher.show',['id' => $teacher->id])}}">
-                <div class="ch-item1 ch-img effect" style="background-image: url('/images/teachers/{{$teacher->image}}')">
-                    <div class="ch-info1">
-                    </div>
-                    <div class="caption">
-                        <h4>{{$teacher->last_name}} {{$teacher->first_name}}</h4>
-                    </div>
-                </div></a>
-                @endforeach
-            </div>
+    <section id="specialitati" class="posts">
+        <div class="container" align="center" style="width: 75%">
+            <h2>Specialități</h2>
+
+            <article>
+                <div class="pic"><img width="121" src="images/aaw.png" alt=""></div>
+                <div class="info">
+                    <h3>Administrarea aplicațiilor web</h3>
+                    <p>Absolvenții specialității Administrarea aplicațiilor web obțin calificarea tehnician de site-uri web și desfășoară activități la entități economice în cadrul echipelor de dezvoltare și mentenanță a site-urilor și aplicațiilor Web. </p>
+
+                </div>
+            </article>
+            <article>
+                <div class="pic"><img width="121" src="images/pap.png" alt=""></div>
+                <div class="info">
+                    <h3>Programarea și analiza produselor program</h3>
+                    <p>Absolvenții specialității Programarea și analiza produselor program obțin calificarea asistent programator și participă la elaborarea algoritmului programului, scrie/ codifică programe sau module de program, testează și implementează module de program/ programe/ aplicații, monitorizează folosirea corectă a programelor/ aplicațiilor de către beneficiari /utilizatori.</p>
+                </div>
+            </article>
         </div>
 
         <!-- / container -->
@@ -136,7 +140,7 @@
                     </div>
                     <div class="info">
                         <h4 class="event-name">{{$event->name}}</h4>
-                        <div class="text-news-short"> {!!$event->description !!} </div>
+                        <div class="text-news-short"> {{ strip_tags($event->description) }} </div>
                         <a class="more" href="{{route('eventShow',$event->id)}}">Citește mai departe</a>
                     </div>
                 </article>

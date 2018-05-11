@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" media="all" href="/css/style.css">
     <link rel="stylesheet" media="all" href="/css/effects.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="icon" href="/images/2.png">
     <style>
         .dropdown-item{
             text-align: center;
@@ -20,6 +22,8 @@
 @yield('styles')
 </head>
 <body>
+
+        <a onclick="scrollToTop();" id="return-to-top" style="position: fixed; bottom: 1em; right: 1em;"><i class="fa fa-chevron-up"></i></a>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -55,6 +59,33 @@
     function scrollToFooter(){
         $("html, body").animate({ scrollTop: $('#footer').offset().top }, 1000);
     }
+    function scrollToTop(){
+         $("html, body").animate({ scrollTop: $('#header').offset().top }, 1000);
+    }
+</script>
+
+<script type="text/javascript">
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);// Fade in the arrow
+        $("#header2").fadeIn(200);
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+        $('#header2').fadeOut(200);   // Else fade out the arrow
+    }
+});
+$('#surseList').hover(function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+}, function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+});
+
+    function scrollSpec(){
+        $('html, body').animate({
+            scrollTop: $("#specialitati").offset().top
+        }, 1000);
+    }
+
 </script>
 @yield('scripts')
 </body>

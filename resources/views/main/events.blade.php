@@ -26,6 +26,9 @@
     .short-desc img{
         display: none;
     }
+    article{
+        height: 20em;
+    }
     </style>
 @stop
 @section('content')
@@ -44,9 +47,10 @@
                             <div class="info">
                                 <h3>{{$event->name}}</h3>
                                 <p class="info-line"><span class="time">{{date('H:i',strtotime($event->date))}}</span></p>
-                                <div class="short-desc">{!! $event->description !!}</div>
-                                <a class="btn-blue"  href="{{route('eventShow',$event->id)}}">Deschide</a>
+                                <div class="short-desc">{{ strip_tags($event->description) }}</div>
+                                
                             </div>
+                            <a class="btn-blue" style="position: absolute; bottom: 1em; left: 0;"  href="{{route('eventShow',$event->id)}}">Deschide</a>
                         </article>
                     @endforeach
                     </div>

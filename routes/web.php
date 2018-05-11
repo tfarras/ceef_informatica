@@ -99,6 +99,7 @@ Route::post('admin/delete/teacher','Admin\AdminController@deleteTeacher')->name(
 Route::post('admin/delete/event','Admin\AdminController@deleteEvent')->name('DeleteEvent');
 Route::post('admin/delete/absolvent','Admin\AdminController@deleteAbsolvent')->name('DeleteAbsolvent');
 Route::post('admin/delete/article','Admin\AdminController@deleteArticle')->name('DeleteArticle');
+Route::post('admin/delete/manual','Admin\AdminController@deleteManual')->name('deleteManual');
 
 //TODO Article
 Route::get('admin/create/article','Admin\AdminController@createArticle')->name('CreateArticle');
@@ -128,6 +129,10 @@ Route::get('admin/edit/project','Admin\AdminController@editProjectIndex')->name(
 Route::post('admin/edit/project/save','Admin\AdminController@editProject')->name('projectSave');
 Route::post('admin/delete/project','Admin\AdminController@deleteProject')->name('projectDelete');
 
+//TODO Bibliography
+Route::get('admin/create/bibliography','Admin\AdminController@createBibliographyIndex')->name('createBibliographyIndex');
+Route::post('admin/create/bibliography/save','Admin\AdminController@createBibliographySave')->name('createBibliographySave');
+
 //TODO Project Gallery
 
 Route::get('admin/projects/gallery/upload','Admin\AdminController@ProjectGalleryUploadIndex')->name('ProjectGalleryUploadIndex');
@@ -155,3 +160,8 @@ Route::get('course','MainController@coursesIndex')->name('coursesIndex');
 Route::get('absolvent','MainController@absolventIndex')->name('absolventIndex');
 Route::get('projects','MainController@projectsIndex')->name('projectsIndex');
 Route::get('projects/gallery','MainController@projectsGalleryIndex')->name('projectsGalleryIndex');
+Route::get('teachers','MainController@showTeachers')->name('show.teachers');
+Route::get('bibliography','MainController@loadBibliography')->name('load.bibliography');
+Route::get('calendar',function (){
+    return view('main.calendar');
+})->name('calendar');
