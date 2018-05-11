@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Absolvent;
 use App\Article;
+use App\Bibliography;
 use App\Course;
+use App\Discipline;
 use App\Event;
 use App\EventImage;
 use App\Image;
@@ -680,6 +682,7 @@ $teacher->image=$imageName;
         $courses=Course::all();
         $plans=Plan::all();
         $projects=Project::all();
+        $manuals=Bibliography::all();
         return view('admin_lte.delete-all')
             ->with('events',$events)
             ->with('teachers',$teachers)
@@ -687,7 +690,8 @@ $teacher->image=$imageName;
             ->with('articles',$articles)
             ->with('courses',$courses)
             ->with('plans',$plans)
-            ->with('projects', $projects);
+            ->with('projects', $projects)
+            ->with('manuals',$manuals);
     }
 
     public function deleteTeacher(Request $request){
@@ -1127,5 +1131,55 @@ $teacher->image=$imageName;
             return redirect(route('AdminHome'))->with('error_message','Incorrect password');
         }
     }
+
+    public function createBibliographyIndex(){
+        $disciplines=Discipline::all();
+        return view('admin_lte.createBibliography')->with('disciplines',$disciplines);
+    }
+
+    public function createBibliographySave(Request $request){
+        $disciplineID=$request->input('discipline');
+        $title=$request->input('title');
+        $file=$request->file('file');
+        ini_set('upload_max_filesize', '100M');
+        ini_set('post_max_size', '100M');
+        if(!$disciplineID){
+            return redirect()->back()->with('error_message','Alegeți disciplina !');
+        }
+        if(!$title){
+            return redirect()->back()->with('error_message','Alegeți denumirea !');
+        }
+        if(!$file){
+            return redirect()->back()->with('error_message','Alegeți file !');
+        }
+
+        $extensions=['pdf'];
+        if(!in_array($file->guessClientExtension(),$extensions)){
+            return redirect()->back()->with('error_message','Extension of file is not supported !');
+        }
+        $imageName=date('m-d-Y_hia').uniqid().'.'.$file->guessClientExtension();
+        $path=$file->storeAs('files/bibliography',$imageName,'uploads');
+
+        $plan= new Bibliography();
+        $plan->manual_name=$title;
+        $plan->discipline_id=$disciplineID;
+        $plan->path=$path;
+        $plan->save();
+
+        return redirect()->back()->with('message','Plan a fost salvat cu succes !');
+    }
+
+
+    public function deleteManual(Request $request){
+        try{
+            Bibliography::destroy($request->input('id'));
+        }
+        catch (Exception $exception){
+            return redirect()->back()->with('error_message','Error: '.$exception);
+        }
+
+        return redirect()->back()->with('message','Manualul a fost șters cu succes !');
+    }
+
 
 }

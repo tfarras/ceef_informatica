@@ -219,6 +219,35 @@
                 </div>
             </div>
         </div>
+        <div class="col col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Surse Bibliografice</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form">
+                        <form method="post" action="{{route('deleteManual')}}">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Alegeți sursa:</label>
+                                    <select id="surse" name="id" class="form-control select2" title="project">
+                                        <option></option>
+                                        @foreach($manuals as $manual)
+                                            <option value="{{$manual->id}}">{{$manual->manual_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    {{@csrf_field()}}
+                                    <button class="btn btn-success">Șterge</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @stop
@@ -246,6 +275,9 @@
             });
             $('#project').select2({
                 placeholder:"Lucrare de diplomă"
+            });
+            $('#surse').select2({
+                placeholder:"Sursa bibliografica"
             });
         });
     </script>
