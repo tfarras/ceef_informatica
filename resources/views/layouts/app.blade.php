@@ -23,7 +23,7 @@
 </head>
 <body>
 
-        <a onclick="scrollToTop();" id="return-to-top" style="position: fixed; bottom: 1em; right: 1em;"><i class="icon-chevron-up"></i></a>
+        <a onclick="scrollToTop();" id="return-to-top" style="position: fixed; bottom: 1em; right: 1em;"><i class="fa fa-chevron-up"></i></a>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

@@ -17,7 +17,7 @@
                     </a>
                     <div class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
                         <a href="{{route('plansIndex')}}" class="dropdown-item" >Planuri de învățământ</a>
-                        <a class="dropdown-item"  onclick="scrollSpec()">Specialități</a>
+                        <a class="dropdown-item" href="/#specialitati"  onclick="scrollSpec()">Specialități</a>
                         <a class="dropdown-item" href="{{route('coursesIndex')}}">Cursuri</a>
                         <a class="dropdown-item" href="{{route('show.teachers')}}">Profesori</a>
                         <a class="dropdown-item" href="{{route('calendar')}}">Calendar academic</a>
@@ -58,7 +58,7 @@
                     </a>
                     <div class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
                         <a href="{{route('plansIndex')}}" class="dropdown-item" >Planuri de învățământ</a>
-                        <a class="dropdown-item" id="specBtn" onclick="scrollSpec();">Specialități</a>
+                        <a class="dropdown-item" href="/#specialitati"  onclick="scrollSpec()">Specialități</a>
                         <a class="dropdown-item" href="{{route('coursesIndex')}}">Cursuri</a>
                         <a class="dropdown-item" href="{{route('show.teachers')}}">Profesori</a>
                         <a class="dropdown-item" href="{{route('calendar')}}">Calendar academic</a>
