@@ -15,6 +15,10 @@
         .dropdown-item{
             text-align: center;
         }
+        @font-face {
+            font-family: 'AlternateGothicEF NoTwo';
+            src: url('/fonts/AlternateGothicEF_NoTwo.ttf');
+        }
     </style>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
